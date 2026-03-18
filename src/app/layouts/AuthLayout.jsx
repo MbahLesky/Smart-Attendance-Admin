@@ -1,8 +1,15 @@
-import { Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 
 import { AppLogo } from '../../components/shared/AppLogo'
+import { useAppStore } from '../store/useAppStore'
 
 export function AuthLayout() {
+  const currentUserId = useAppStore((state) => state.auth.currentUserId)
+
+  if (currentUserId) {
+    return <Navigate to="/app/dashboard" replace />
+  }
+
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.15),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(6,182,212,0.14),transparent_25%),linear-gradient(180deg,#f8fafc_0%,#eef4ff_100%)]">
       <div className="page-shell flex min-h-screen items-center">
@@ -14,18 +21,18 @@ export function AuthLayout() {
               <div className="max-w-xl">
                 <p className="text-caption">Smart Attendance System</p>
                 <h1 className="mt-4 text-display">
-                  Attendance operations that feel organized, secure, and instant.
+                  Admin attendance flows built around organizations, departments, sessions, and live monitoring.
                 </h1>
                 <p className="mt-4 max-w-lg text-body">
-                  A premium admin workspace for managing organizations, sessions, QR check-ins,
-                  attendance status, and reporting across teams or campuses.
+                  This desktop-first prototype follows the documented web journey: sign in, choose an organization
+                  context, manage departments and users, create sessions, then open QR and attendance monitoring flows.
                 </p>
               </div>
               <div className="grid grid-cols-3 gap-4">
                 {[
-                  ['8', 'Organizations'],
-                  ['1.2k', 'Attendees'],
-                  ['93.8%', 'Attendance rate'],
+                  ['3', 'Organizations'],
+                  ['5', 'Core admin flows'],
+                  ['100%', 'Frontend only'],
                 ].map(([value, label]) => (
                   <div key={label} className="rounded-2xl border bg-white/80 p-4 backdrop-blur">
                     <p className="text-2xl font-semibold text-brand-text">{value}</p>

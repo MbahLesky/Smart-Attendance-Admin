@@ -4,6 +4,8 @@ import { MoreHorizontal } from 'lucide-react'
 
 import { cn } from '../../lib/utils'
 
+const MotionMenu = motion.div
+
 export function DropdownMenu({ items }) {
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
@@ -30,7 +32,7 @@ export function DropdownMenu({ items }) {
       </button>
       <AnimatePresence>
         {open ? (
-          <motion.div
+          <MotionMenu
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
@@ -52,7 +54,7 @@ export function DropdownMenu({ items }) {
                 {item.label}
               </button>
             ))}
-          </motion.div>
+          </MotionMenu>
         ) : null}
       </AnimatePresence>
     </div>

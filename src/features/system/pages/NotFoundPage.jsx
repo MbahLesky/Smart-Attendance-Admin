@@ -1,4 +1,3 @@
-import { Compass } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import { Button } from '../../../components/ui/button'
@@ -8,19 +7,17 @@ export function NotFoundPage() {
   return (
     <div className="page-shell flex min-h-screen items-center justify-center">
       <Card className="max-w-xl text-center">
-        <div className="mx-auto flex size-16 items-center justify-center rounded-3xl bg-blue-50">
-          <Compass className="size-7 text-brand-primary" />
-        </div>
-        <h1 className="mt-6 text-headline">Page not found</h1>
-        <p className="mt-3 text-body">
-          This route is outside the current smart attendance prototype. Use the dashboard or landing page to continue.
+        <p className="text-caption">404</p>
+        <h1 className="mt-3 text-headline">That page is outside the documented flow</h1>
+        <p className="mt-4 text-body">
+          Return to sign in or the dashboard to continue through the Smart Attendance admin journey.
         </p>
         <div className="mt-6 flex justify-center gap-3">
-          <Link to="/">
-            <Button variant="secondary">Landing page</Button>
+          <Link to="/sign-in">
+            <Button variant="secondary">Go to sign in</Button>
           </Link>
           <Link to="/app/dashboard">
-            <Button>Dashboard</Button>
+            <Button>Go to dashboard</Button>
           </Link>
         </div>
       </Card>

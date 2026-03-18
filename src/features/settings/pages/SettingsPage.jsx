@@ -1,88 +1,71 @@
-import { useState } from 'react'
 import { toast } from 'sonner'
 
+import { useAppStore } from '../../../app/store/useAppStore'
 import { PageHeader } from '../../../components/shared/PageHeader'
 import { Button } from '../../../components/ui/button'
 import { Card } from '../../../components/ui/card'
-import { Checkbox } from '../../../components/ui/checkbox'
-import { Input } from '../../../components/ui/input'
-import { Tabs } from '../../../components/ui/tabs'
 
 export function SettingsPage() {
-  const [tab, setTab] = useState('general')
+  const settings = useAppStore((state) => state.settings)
+  const updateSettings = useAppStore((state) => state.updateSettings)
+  const resetDemo = useAppStore((state) => state.resetDemo)
 
   return (
     <div className="space-y-6">
       <PageHeader
         eyebrow="Settings"
-        title="Workspace configuration"
-        description="A UI prototype for general platform settings, notifications, and attendance policy preferences."
-        secondaryAction={
-          <Tabs
-            items={[
-              { label: 'General', value: 'general' },
-              { label: 'Policies', value: 'policies' },
-              { label: 'Notifications', value: 'notifications' },
-            ]}
-            value={tab}
-            onValueChange={setTab}
-          />
-        }
-        actionLabel="Save settings"
-        onAction={() => toast.success('Settings saved locally.')}
+        title="Adjust the prototype behavior"
+        description="Settings remain frontend-only in this phase, but they are centralized so backend preferences can replace them later without rewriting the UI."
       />
 
-      {tab === 'general' ? (
-        <Card>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <label className="mb-2 block text-label">Organization display name</label>
-              <Input defaultValue="Northwind Academy" />
-            </div>
-            <div>
-              <label className="mb-2 block text-label">Default timezone</label>
-              <Input defaultValue="UTC+01:00 Africa/Douala" />
-            </div>
-          </div>
-        </Card>
-      ) : null}
-
-      {tab === 'policies' ? (
+      <section className="grid gap-6 xl:grid-cols-[1fr_0.8fr]">
         <Card>
           <div className="space-y-4">
             {[
-              'Allow manual attendance adjustments',
-              'Flag duplicate scans immediately',
-              'Require confirmation before closing sessions',
-            ].map((label) => (
-              <label key={label} className="flex items-center gap-3 rounded-2xl border p-4">
-                <Checkbox defaultChecked />
-                <span className="text-sm text-brand-text">{label}</span>
+              ['emailNotifications', 'Email notifications', 'Send summary notifications to admin accounts.'],
+              ['securityAlerts', 'Security alerts', 'Notify admins when attendance exceptions or auth issues occur.'],
+              ['dailyDigest', 'Daily digest', 'Aggregate daily attendance summaries by scope.'],
+              ['autoCloseSessions', 'Auto-close sessions', 'Simulate automatic session closing at the configured end time.'],
+              ['requireManualReason', 'Manual entry reason required', 'Keep a remark whenever attendance is manually edited.'],
+            ].map(([key, title, description]) => (
+              <label key={key} className="flex items-start justify-between gap-4 rounded-3xl border p-4">
+                <div>
+                  <p className="font-semibold text-brand-text">{title}</p>
+                  <p className="mt-2 text-sm text-brand-muted">{description}</p>
+                </div>
+                <input
+                  type="checkbox"
+                  checked={settings[key]}
+                  onChange={(event) => updateSettings({ [key]: event.target.checked })}
+                  className="mt-1 size-5 rounded border-slate-300 text-brand-primary focus:ring-brand-primary"
+                />
               </label>
             ))}
           </div>
         </Card>
-      ) : null}
 
-      {tab === 'notifications' ? (
-        <Card>
-          <div className="space-y-4">
-            {[
-              'Attendance threshold alerts',
-              'Report export completion',
-              'Daily admin summary',
-            ].map((label, index) => (
-              <label key={label} className="flex items-center gap-3 rounded-2xl border p-4">
-                <Checkbox defaultChecked={index !== 2} />
-                <span className="text-sm text-brand-text">{label}</span>
-              </label>
-            ))}
+        <Card className="bg-slate-950 text-white">
+          <p className="text-caption text-slate-400">Prototype tools</p>
+          <h2 className="mt-2 text-2xl font-semibold">Reset mock state</h2>
+          <p className="mt-4 text-sm text-slate-300">
+            Reset the local store to the seeded dataset if you want to replay the docs-aligned admin flow from the start.
+          </p>
+          <div className="mt-6 rounded-3xl bg-white/5 p-4">
+            <p className="text-sm text-slate-400">Default grace minutes</p>
+            <p className="mt-2 text-3xl font-semibold">{settings.defaultGraceMinutes}</p>
           </div>
-          <Button className="mt-6" variant="secondary">
-            Test notification
+          <Button
+            className="mt-6 w-full"
+            variant="secondary"
+            onClick={() => {
+              resetDemo()
+              toast.success('Prototype data reset to the seeded state.')
+            }}
+          >
+            Reset prototype data
           </Button>
         </Card>
-      ) : null}
+      </section>
     </div>
   )
 }

@@ -1,141 +1,227 @@
 import { useMemo, useState } from 'react'
-import { Building2, Plus } from 'lucide-react'
 import { toast } from 'sonner'
 
+import { useAccessibleOrganizations } from '../../../app/store/hooks'
+import { useAppStore } from '../../../app/store/useAppStore'
+import {
+  formatName,
+  formatRole,
+  getCurrentUser,
+} from '../../../app/store/selectors'
 import { PageHeader } from '../../../components/shared/PageHeader'
 import { Badge } from '../../../components/ui/badge'
 import { Button } from '../../../components/ui/button'
 import { Card } from '../../../components/ui/card'
-import { DataTable } from '../../../components/ui/data-table'
 import { Dialog } from '../../../components/ui/dialog'
 import { Input } from '../../../components/ui/input'
-import { organizations } from '../../../lib/mock-data'
+import { Select } from '../../../components/ui/select'
+
+const emptyForm = {
+  name: '',
+  email: '',
+  phone: '',
+  address: '',
+  status: 'active',
+}
 
 export function OrganizationsPage() {
-  const [search, setSearch] = useState('')
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const [editingId, setEditingId] = useState(null)
+  const [formState, setFormState] = useState(emptyForm)
+  const currentUser = useAppStore(getCurrentUser)
+  const organizations = useAccessibleOrganizations()
+  const selectedOrganizationId = useAppStore((state) => state.ui.selectedOrganizationId)
+  const users = useAppStore((state) => state.users)
+  const departments = useAppStore((state) => state.departments)
+  const sessions = useAppStore((state) => state.sessions)
+  const createOrganization = useAppStore((state) => state.createOrganization)
+  const updateOrganization = useAppStore((state) => state.updateOrganization)
+  const setSelectedOrganization = useAppStore((state) => state.setSelectedOrganization)
 
-  const filtered = useMemo(
+  const organizationRows = useMemo(
     () =>
-      organizations.filter((item) =>
-        [item.name, item.email, item.admin].some((value) =>
-          value.toLowerCase().includes(search.toLowerCase()),
-        ),
-      ),
-    [search],
+      organizations.map((organization) => {
+        const orgUsers = users.filter((user) => user.organizationId === organization.id)
+        const admin = orgUsers.find((user) => user.role === 'organization_admin') ?? null
+
+        return {
+          ...organization,
+          attendeeCount: orgUsers.filter((user) => user.role === 'attendee').length,
+          departmentCount: departments.filter((department) => department.organizationId === organization.id).length,
+          sessionCount: sessions.filter((session) => session.organizationId === organization.id).length,
+          admin,
+        }
+      }),
+    [departments, organizations, sessions, users],
   )
 
-  const columns = [
-    {
-      header: 'Organization',
-      cell: ({ row }) => (
-        <div>
-          <p className="font-semibold text-brand-text">{row.original.name}</p>
-          <p className="mt-1 text-sm text-brand-muted">{row.original.address}</p>
-        </div>
-      ),
-    },
-    {
-      header: 'Admin',
-      cell: ({ row }) => (
-        <div>
-          <p>{row.original.admin}</p>
-          <p className="mt-1 text-sm text-brand-muted">{row.original.email}</p>
-        </div>
-      ),
-    },
-    {
-      header: 'Attendees',
-      cell: ({ row }) => row.original.attendees,
-    },
-    {
-      header: 'Status',
-      cell: ({ row }) => <Badge>{row.original.status}</Badge>,
-    },
-  ]
+  const canManageOrganizations = currentUser?.role === 'super_admin'
+
+  function openCreateDialog() {
+    setEditingId(null)
+    setFormState(emptyForm)
+    setDialogOpen(true)
+  }
+
+  function openEditDialog(organization) {
+    setEditingId(organization.id)
+    setFormState({
+      name: organization.name,
+      email: organization.email,
+      phone: organization.phone,
+      address: organization.address,
+      status: organization.status,
+    })
+    setDialogOpen(true)
+  }
+
+  function submitForm() {
+    if (!formState.name || !formState.address) {
+      toast.error('Organization name and address are required.')
+      return
+    }
+
+    if (editingId) {
+      updateOrganization(editingId, formState)
+      toast.success('Organization updated.')
+    } else {
+      createOrganization(formState)
+      toast.success('Organization created.')
+    }
+
+    setDialogOpen(false)
+    setEditingId(null)
+    setFormState(emptyForm)
+  }
 
   return (
     <div className="space-y-6">
       <PageHeader
-        eyebrow="Organization management"
-        title="Manage multi-organization workspaces"
-        description="Super admins can create, review, and update organizations before assigning administrators and departments."
-        actionLabel="New organization"
-        onAction={() => setIsDialogOpen(true)}
+        eyebrow="Organizations"
+        title="Manage organization workspaces"
+        description={
+          canManageOrganizations
+            ? 'The docs place organization management at the top of the admin workflow. Super admins create or update organizations before downstream department and user setup.'
+            : 'Organization admins can review the current workspace here, but organization creation stays restricted to super admins in the documented access model.'
+        }
+        actionLabel={canManageOrganizations ? 'New organization' : undefined}
+        onAction={canManageOrganizations ? openCreateDialog : undefined}
       />
 
-      <Card>
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <Input
-            className="max-w-md"
-            placeholder="Search organizations or admins"
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-          />
-          <Button variant="secondary" onClick={() => toast.info('CSV export is mocked locally.')}>
-            <Plus className="size-4" />
-            Import CSV
-          </Button>
-        </div>
-        <div className="mt-6">
-          <DataTable columns={columns} data={filtered} />
-        </div>
-      </Card>
+      <div className="grid gap-4 xl:grid-cols-2">
+        {organizationRows.map((organization) => (
+          <Card key={organization.id}>
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-3">
+                  <h2 className="text-xl font-semibold text-brand-text">{organization.name}</h2>
+                  <Badge>{organization.status}</Badge>
+                </div>
+                <p className="mt-2 text-sm text-brand-muted">{organization.address}</p>
+              </div>
+              <Badge tone={selectedOrganizationId === organization.id ? 'info' : 'neutral'}>
+                {selectedOrganizationId === organization.id ? 'Current scope' : 'Available'}
+              </Badge>
+            </div>
+
+            <div className="mt-6 grid gap-3 sm:grid-cols-3">
+              <div className="rounded-2xl border bg-slate-50 p-4">
+                <p className="text-sm text-brand-muted">Departments</p>
+                <p className="mt-2 text-2xl font-semibold text-brand-text">{organization.departmentCount}</p>
+              </div>
+              <div className="rounded-2xl border bg-slate-50 p-4">
+                <p className="text-sm text-brand-muted">Attendees</p>
+                <p className="mt-2 text-2xl font-semibold text-brand-text">{organization.attendeeCount}</p>
+              </div>
+              <div className="rounded-2xl border bg-slate-50 p-4">
+                <p className="text-sm text-brand-muted">Sessions</p>
+                <p className="mt-2 text-2xl font-semibold text-brand-text">{organization.sessionCount}</p>
+              </div>
+            </div>
+
+            <div className="mt-6 rounded-2xl border bg-slate-50 p-4">
+              <p className="text-sm text-brand-muted">Primary admin</p>
+              <p className="mt-2 font-semibold text-brand-text">
+                {organization.admin ? formatName(organization.admin) : 'Not assigned yet'}
+              </p>
+              <p className="mt-1 text-sm text-brand-muted">
+                {organization.admin ? `${organization.admin.email} / ${formatRole(organization.admin.role)}` : organization.email}
+              </p>
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Button variant="secondary" onClick={() => setSelectedOrganization(organization.id)}>
+                Set as current scope
+              </Button>
+              {canManageOrganizations ? (
+                <Button variant="ghost" onClick={() => openEditDialog(organization)}>
+                  Edit organization
+                </Button>
+              ) : null}
+            </div>
+          </Card>
+        ))}
+      </div>
 
       <Dialog
-        open={isDialogOpen}
-        onClose={() => setIsDialogOpen(false)}
-        title="Create organization"
-        description="Prototype-only form mirroring the documented organization data fields."
+        open={dialogOpen}
+        title={editingId ? 'Edit organization' : 'Create organization'}
+        description="Organization records become the first required selection step for department, user, session, and attendance flows."
+        onClose={() => setDialogOpen(false)}
         footer={
           <>
-            <Button variant="secondary" onClick={() => setIsDialogOpen(false)}>
+            <Button variant="secondary" onClick={() => setDialogOpen(false)}>
               Cancel
             </Button>
-            <Button
-              onClick={() => {
-                toast.success('Organization saved in local prototype state.')
-                setIsDialogOpen(false)
-              }}
-            >
-              Save draft
-            </Button>
+            <Button onClick={submitForm}>{editingId ? 'Save changes' : 'Create organization'}</Button>
           </>
         }
       >
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="sm:col-span-2">
             <label className="mb-2 block text-label">Organization name</label>
-            <Input placeholder="Pioneer Training Center" />
+            <Input
+              value={formState.name}
+              onChange={(event) => setFormState((current) => ({ ...current, name: event.target.value }))}
+              placeholder="Northwind Academy"
+            />
           </div>
           <div>
-            <label className="mb-2 block text-label">Contact email</label>
-            <Input placeholder="hello@organization.com" />
+            <label className="mb-2 block text-label">Work email</label>
+            <Input
+              value={formState.email}
+              onChange={(event) => setFormState((current) => ({ ...current, email: event.target.value }))}
+              placeholder="admin@organization.com"
+            />
           </div>
           <div>
             <label className="mb-2 block text-label">Phone number</label>
-            <Input placeholder="+1 (555) 555-0123" />
+            <Input
+              value={formState.phone}
+              onChange={(event) => setFormState((current) => ({ ...current, phone: event.target.value }))}
+              placeholder="+1 (555) 555-0100"
+            />
           </div>
           <div className="sm:col-span-2">
             <label className="mb-2 block text-label">Address</label>
-            <Input placeholder="Street, city, country" />
+            <Input
+              value={formState.address}
+              onChange={(event) => setFormState((current) => ({ ...current, address: event.target.value }))}
+              placeholder="12 Harbor Avenue, Seattle"
+            />
+          </div>
+          <div className="sm:col-span-2">
+            <label className="mb-2 block text-label">Status</label>
+            <Select
+              value={formState.status}
+              onChange={(event) => setFormState((current) => ({ ...current, status: event.target.value }))}
+            >
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </Select>
           </div>
         </div>
       </Dialog>
-
-      <Card className="bg-slate-950 text-white">
-        <div className="flex items-center gap-4">
-          <div className="rounded-2xl bg-white/10 p-3">
-            <Building2 className="size-5 text-cyan-300" />
-          </div>
-          <div>
-            <p className="font-semibold">Onboarding pattern</p>
-            <p className="mt-1 text-sm text-slate-300">
-              Each organization card and dialog is ready to connect to later onboarding and assignment APIs.
-            </p>
-          </div>
-        </div>
-      </Card>
     </div>
   )
 }

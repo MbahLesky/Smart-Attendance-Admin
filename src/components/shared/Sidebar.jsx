@@ -1,43 +1,48 @@
 import { NavLink } from 'react-router-dom'
 import {
-  Bell,
   Building2,
+  CalendarClock,
   ChartColumn,
-  Clock3,
+  ClipboardList,
   LayoutDashboard,
-  QrCode,
   Settings,
-  ShieldCheck,
+  ShieldEllipsis,
+  UserCircle2,
   Users2,
 } from 'lucide-react'
 
 import { AppLogo } from './AppLogo'
+import { useAppStore } from '../../app/store/useAppStore'
+import { getCurrentUser } from '../../app/store/selectors'
 import { cn } from '../../lib/utils'
 
-const navGroups = [
-  {
-    title: 'Core',
-    items: [
-      { to: '/app/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-      { to: '/app/organizations', label: 'Organizations', icon: Building2 },
-      { to: '/app/departments', label: 'Departments', icon: ShieldCheck },
-      { to: '/app/attendees', label: 'Attendees', icon: Users2 },
-      { to: '/app/sessions', label: 'Sessions', icon: Clock3 },
-      { to: '/app/attendance', label: 'Attendance', icon: QrCode },
-      { to: '/app/reports', label: 'Reports', icon: ChartColumn },
-    ],
-  },
-  {
-    title: 'Personal',
-    items: [
-      { to: '/app/history', label: 'History', icon: Clock3 },
-      { to: '/app/notifications', label: 'Notifications', icon: Bell },
-      { to: '/app/settings', label: 'Settings', icon: Settings },
-    ],
-  },
-]
-
 export function Sidebar() {
+  const currentUser = useAppStore(getCurrentUser)
+  const showOrganizations = currentUser?.role === 'super_admin'
+  const navGroups = [
+    {
+      title: 'Core',
+      items: [
+        { to: '/app/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+        ...(showOrganizations
+          ? [{ to: '/app/organizations', label: 'Organizations', icon: Building2 }]
+          : []),
+        { to: '/app/departments', label: 'Departments', icon: ShieldEllipsis },
+        { to: '/app/users', label: 'Users', icon: Users2 },
+        { to: '/app/sessions', label: 'Sessions', icon: CalendarClock },
+        { to: '/app/attendance', label: 'Attendance', icon: ClipboardList },
+        { to: '/app/reports', label: 'Reports', icon: ChartColumn },
+      ],
+    },
+    {
+      title: 'Account',
+      items: [
+        { to: '/app/profile', label: 'Profile', icon: UserCircle2 },
+        { to: '/app/settings', label: 'Settings', icon: Settings },
+      ],
+    },
+  ]
+
   return (
     <aside className="panel-muted sticky top-4 hidden h-[calc(100vh-2rem)] w-72 shrink-0 flex-col overflow-hidden lg:flex">
       <div className="border-b px-5 py-5">
@@ -75,9 +80,9 @@ export function Sidebar() {
         ))}
       </div>
       <div className="border-t bg-slate-50/70 px-5 py-4">
-        <p className="text-sm font-medium text-brand-text">Prepared for offline-first</p>
+        <p className="text-sm font-medium text-brand-text">Docs-driven prototype</p>
         <p className="mt-1 text-xs text-brand-muted">
-          Router, mock data, and UI state patterns are ready for future PWA sync work.
+          The current flows stay frontend-only, but the state shape already mirrors future backend entities.
         </p>
       </div>
     </aside>

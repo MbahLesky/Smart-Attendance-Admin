@@ -6,26 +6,19 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'sonner'
 
+import { useAppStore } from '../../../app/store/useAppStore'
 import { Button } from '../../../components/ui/button'
 import { Input } from '../../../components/ui/input'
-import { Select } from '../../../components/ui/select'
-import { Tabs } from '../../../components/ui/tabs'
 import { AuthFormShell } from '../components/AuthFormShell'
-import { SocialAuthButtons } from '../components/SocialAuthButtons'
 
 const registerSchema = z
   .object({
     organizationName: z.string().min(2, 'Organization name is required.'),
-    adminName: z.string().min(2, 'Admin name is required.'),
-    contact: z
-      .string()
-      .min(1, 'Email or phone is required.')
-      .refine(
-        (value) =>
-          z.string().email().safeParse(value).success || /^\+?[0-9()\-\s]{8,}$/.test(value),
-        'Enter a valid email address or phone number.',
-      ),
-    role: z.string().min(1, 'Choose a primary role.'),
+    address: z.string().min(6, 'Organization address is required.'),
+    firstName: z.string().min(2, 'First name is required.'),
+    lastName: z.string().min(2, 'Last name is required.'),
+    email: z.string().email('Enter a valid work email.'),
+    phone: z.string().regex(/^\+?[0-9()\-\s]{8,}$/, 'Enter a valid phone number.'),
     password: z.string().min(8, 'Password must be at least 8 characters.'),
     confirmPassword: z.string().min(8, 'Please confirm your password.'),
   })
@@ -35,8 +28,8 @@ const registerSchema = z
   })
 
 export function RegisterPage() {
-  const [entryPoint, setEntryPoint] = useState('email')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const beginRegistration = useAppStore((state) => state.beginRegistration)
   const navigate = useNavigate()
   const {
     register,
@@ -47,19 +40,20 @@ export function RegisterPage() {
     mode: 'onChange',
   })
 
-  function onSubmit() {
+  function onSubmit(values) {
     setIsSubmitting(true)
     window.setTimeout(() => {
+      beginRegistration(values)
       setIsSubmitting(false)
-      toast.success('Registration details captured locally. Continue to verification.')
+      toast.success('Registration details captured. Continue to verification with code 482913.')
       navigate('/verify')
-    }, 1000)
+    }, 500)
   }
 
   return (
     <AuthFormShell
       title="Create your attendance workspace"
-      description="Start with a super admin or organization admin account using email or phone registration."
+      description="Register an organization and primary organization admin account before adding departments, users, sessions, and attendance activity."
       footer={
         <>
           Already have access?{' '}
@@ -69,15 +63,6 @@ export function RegisterPage() {
         </>
       }
     >
-      <Tabs
-        className="mb-6"
-        items={[
-          { label: 'Email signup', value: 'email' },
-          { label: 'Phone signup', value: 'phone' },
-        ]}
-        value={entryPoint}
-        onValueChange={setEntryPoint}
-      />
       <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="sm:col-span-2">
@@ -87,35 +72,34 @@ export function RegisterPage() {
               <p className="mt-2 text-sm text-brand-danger">{errors.organizationName.message}</p>
             ) : null}
           </div>
+          <div className="sm:col-span-2">
+            <label className="mb-2 block text-label">Organization address</label>
+            <Input placeholder="12 Harbor Avenue, Seattle" {...register('address')} />
+            {errors.address ? <p className="mt-2 text-sm text-brand-danger">{errors.address.message}</p> : null}
+          </div>
           <div>
-            <label className="mb-2 block text-label">Admin name</label>
-            <Input placeholder="Mia Reynolds" {...register('adminName')} />
-            {errors.adminName ? (
-              <p className="mt-2 text-sm text-brand-danger">{errors.adminName.message}</p>
+            <label className="mb-2 block text-label">Admin first name</label>
+            <Input placeholder="Mia" {...register('firstName')} />
+            {errors.firstName ? (
+              <p className="mt-2 text-sm text-brand-danger">{errors.firstName.message}</p>
             ) : null}
           </div>
           <div>
-            <label className="mb-2 block text-label">
-              {entryPoint === 'email' ? 'Email address' : 'Phone number'}
-            </label>
-            <Input
-              placeholder={entryPoint === 'email' ? 'admin@organization.com' : '+1 (555) 555-0100'}
-              {...register('contact')}
-            />
-            {errors.contact ? (
-              <p className="mt-2 text-sm text-brand-danger">{errors.contact.message}</p>
+            <label className="mb-2 block text-label">Admin last name</label>
+            <Input placeholder="Reynolds" {...register('lastName')} />
+            {errors.lastName ? (
+              <p className="mt-2 text-sm text-brand-danger">{errors.lastName.message}</p>
             ) : null}
           </div>
           <div>
-            <label className="mb-2 block text-label">Primary role</label>
-            <Select defaultValue="" {...register('role')}>
-              <option value="" disabled>
-                Choose a role
-              </option>
-              <option value="super-admin">Super Admin</option>
-              <option value="org-admin">Organization Admin</option>
-            </Select>
-            {errors.role ? <p className="mt-2 text-sm text-brand-danger">{errors.role.message}</p> : null}
+            <label className="mb-2 block text-label">Work email</label>
+            <Input placeholder="admin@organization.com" {...register('email')} />
+            {errors.email ? <p className="mt-2 text-sm text-brand-danger">{errors.email.message}</p> : null}
+          </div>
+          <div>
+            <label className="mb-2 block text-label">Phone number</label>
+            <Input placeholder="+1 (555) 555-0100" {...register('phone')} />
+            {errors.phone ? <p className="mt-2 text-sm text-brand-danger">{errors.phone.message}</p> : null}
           </div>
           <div>
             <label className="mb-2 block text-label">Password</label>
@@ -137,12 +121,6 @@ export function RegisterPage() {
           {isSubmitting ? 'Creating workspace...' : 'Create account'}
         </Button>
       </form>
-      <div className="my-6 flex items-center gap-4">
-        <div className="h-px flex-1 bg-slate-200" />
-        <span className="text-xs uppercase tracking-[0.24em] text-slate-400">optional</span>
-        <div className="h-px flex-1 bg-slate-200" />
-      </div>
-      <SocialAuthButtons />
     </AuthFormShell>
   )
 }

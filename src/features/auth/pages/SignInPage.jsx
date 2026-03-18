@@ -1,16 +1,17 @@
 import { useState } from 'react'
 import { Eye, EyeOff, LoaderCircle } from 'lucide-react'
 import { useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'sonner'
 
+import { useAppStore } from '../../../app/store/useAppStore'
 import { Button } from '../../../components/ui/button'
+import { Card } from '../../../components/ui/card'
 import { Input } from '../../../components/ui/input'
 import { Tabs } from '../../../components/ui/tabs'
 import { AuthFormShell } from '../components/AuthFormShell'
-import { SocialAuthButtons } from '../components/SocialAuthButtons'
 
 const signInSchema = z.object({
   identifier: z
@@ -28,10 +29,13 @@ export function SignInPage() {
   const [authMethod, setAuthMethod] = useState('email')
   const [showPassword, setShowPassword] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const signIn = useAppStore((state) => state.signIn)
   const navigate = useNavigate()
+  const location = useLocation()
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isValid },
   } = useForm({
     resolver: zodResolver(signInSchema),
@@ -42,22 +46,36 @@ export function SignInPage() {
     },
   })
 
-  function onSubmit() {
+  function fillDemo(identifier, password, method) {
+    setAuthMethod(method)
+    setValue('identifier', identifier, { shouldValidate: true })
+    setValue('password', password, { shouldValidate: true })
+  }
+
+  function onSubmit(values) {
     setIsSubmitting(true)
     window.setTimeout(() => {
+      const result = signIn(values)
+
       setIsSubmitting(false)
-      toast.success('Signed in locally. Redirecting to dashboard prototype.')
-      navigate('/app/dashboard')
-    }, 900)
+
+      if (!result.success) {
+        toast.error(result.message)
+        return
+      }
+
+      toast.success('Signed in successfully. Opening the admin workspace.')
+      navigate(location.state?.from?.pathname ?? '/app/dashboard')
+    }, 500)
   }
 
   return (
     <AuthFormShell
       title="Sign in to the admin workspace"
-      description="Use your email or phone number to access the smart attendance dashboard."
+      description="Use a documented admin account to access organizations, departments, users, sessions, attendance, and reports."
       footer={
         <>
-          New organization?{' '}
+          Need a new organization workspace?{' '}
           <Link className="font-semibold text-brand-primary" to="/register">
             Register here
           </Link>
@@ -111,21 +129,33 @@ export function SignInPage() {
           <Link className="text-sm font-medium text-brand-primary" to="/forgot-password">
             Forgot password?
           </Link>
-          <Link className="text-sm font-medium text-brand-primary" to="/verify">
-            Mock OTP flow
-          </Link>
         </div>
         <Button fullWidth disabled={!isValid || isSubmitting}>
           {isSubmitting ? <LoaderCircle className="size-4 animate-spin" /> : null}
           {isSubmitting ? 'Signing in...' : 'Sign in'}
         </Button>
       </form>
-      <div className="my-6 flex items-center gap-4">
-        <div className="h-px flex-1 bg-slate-200" />
-        <span className="text-xs uppercase tracking-[0.24em] text-slate-400">or</span>
-        <div className="h-px flex-1 bg-slate-200" />
-      </div>
-      <SocialAuthButtons />
+      <Card className="mt-6 border-blue-100 bg-blue-50/80">
+        <p className="text-caption text-blue-600">Demo admin accounts</p>
+        <div className="mt-4 space-y-3">
+          <button
+            type="button"
+            className="w-full rounded-2xl border border-blue-100 bg-white px-4 py-3 text-left transition hover:border-blue-300"
+            onClick={() => fillDemo('mia.reynolds@smartattendance.test', 'Admin123!', 'email')}
+          >
+            <p className="font-semibold text-brand-text">Super admin</p>
+            <p className="mt-1 text-sm text-brand-muted">mia.reynolds@smartattendance.test</p>
+          </button>
+          <button
+            type="button"
+            className="w-full rounded-2xl border border-blue-100 bg-white px-4 py-3 text-left transition hover:border-blue-300"
+            onClick={() => fillDemo('arthur.blake@northwind.edu', 'Northwind123!', 'email')}
+          >
+            <p className="font-semibold text-brand-text">Organization admin</p>
+            <p className="mt-1 text-sm text-brand-muted">arthur.blake@northwind.edu</p>
+          </button>
+        </div>
+      </Card>
     </AuthFormShell>
   )
 }

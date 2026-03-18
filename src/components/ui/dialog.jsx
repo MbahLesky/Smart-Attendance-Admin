@@ -3,6 +3,9 @@ import { X } from 'lucide-react'
 
 import { Button } from './button'
 
+const MotionOverlay = motion.div
+const MotionPanel = motion.div
+
 export function Dialog({
   open,
   title,
@@ -14,13 +17,13 @@ export function Dialog({
   return (
     <AnimatePresence>
       {open ? (
-        <motion.div
+        <MotionOverlay
           className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/40 p-4 backdrop-blur-sm"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <motion.div
+          <MotionPanel
             className="panel w-full max-w-2xl p-6"
             initial={{ y: 20, opacity: 0, scale: 0.96 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
@@ -39,8 +42,8 @@ export function Dialog({
             </div>
             <div>{children}</div>
             {footer ? <div className="mt-6 flex justify-end gap-3">{footer}</div> : null}
-          </motion.div>
-        </motion.div>
+          </MotionPanel>
+        </MotionOverlay>
       ) : null}
     </AnimatePresence>
   )

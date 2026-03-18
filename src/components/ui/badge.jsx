@@ -21,6 +21,21 @@ const badgeVariants = cva(
 )
 
 const toneMap = {
+  active: 'success',
+  present: 'success',
+  draft: 'warning',
+  late: 'warning',
+  inactive: 'danger',
+  absent: 'danger',
+  closed: 'neutral',
+  cancelled: 'danger',
+  qr: 'info',
+  manual: 'neutral',
+  hybrid: 'warning',
+  success: 'success',
+  warning: 'warning',
+  info: 'info',
+  error: 'danger',
   Active: 'success',
   Healthy: 'success',
   Present: 'success',
@@ -41,7 +56,14 @@ const toneMap = {
 
 export function Badge({ children, tone, className }) {
   return (
-    <span className={cn(badgeVariants({ tone: tone ?? toneMap[children] }), className)}>
+    <span
+      className={cn(
+        badgeVariants({
+          tone: tone ?? toneMap[children] ?? toneMap[String(children).toLowerCase()],
+        }),
+        className,
+      )}
+    >
       {children}
     </span>
   )

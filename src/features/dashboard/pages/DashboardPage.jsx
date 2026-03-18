@@ -1,84 +1,168 @@
-import { Activity, ArrowUpRight, CalendarDays, Download, Users } from 'lucide-react'
+import { Building2, CalendarClock, ClipboardList, MoveRight, Users2 } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
+import {
+  useDashboardMetrics,
+  useScopedSessions,
+  useUnreadNotifications,
+} from '../../../app/store/hooks'
+import { useAppStore } from '../../../app/store/useAppStore'
+import {
+  formatDateLabel,
+  formatWindow,
+  getOrganizationById,
+} from '../../../app/store/selectors'
 import { PageHeader } from '../../../components/shared/PageHeader'
+import { StatCard } from '../../../components/shared/StatCard'
 import { Badge } from '../../../components/ui/badge'
 import { Button } from '../../../components/ui/button'
 import { Card } from '../../../components/ui/card'
-import { dashboardStats, notifications, sessions } from '../../../lib/mock-data'
+
+const flowSteps = [
+  {
+    title: 'Confirm organization scope',
+    description: 'Select the workspace before managing departments, users, sessions, or reports.',
+    to: '/app/organizations',
+    icon: Building2,
+  },
+  {
+    title: 'Create departments',
+    description: 'Departments sit under organizations and become the assignment point for attendees.',
+    to: '/app/departments',
+    icon: Building2,
+  },
+  {
+    title: 'Register users',
+    description: 'Attendees and organization admins are assigned after organization and department context is set.',
+    to: '/app/users',
+    icon: Users2,
+  },
+  {
+    title: 'Create sessions',
+    description: 'Sessions inherit the selected organization and department before QR can be opened.',
+    to: '/app/sessions',
+    icon: CalendarClock,
+  },
+  {
+    title: 'Monitor attendance',
+    description: 'Attendance records and manual overrides are only available once a session is selected.',
+    to: '/app/attendance',
+    icon: ClipboardList,
+  },
+]
 
 export function DashboardPage() {
+  const selectedOrganizationId = useAppStore((state) => state.ui.selectedOrganizationId)
+  const departments = useAppStore((state) => state.departments)
+  const metrics = useDashboardMetrics(selectedOrganizationId)
+  const sessions = useScopedSessions({ organizationId: selectedOrganizationId })
+  const notifications = useUnreadNotifications()
+  const selectedOrganization = useAppStore((state) =>
+    getOrganizationById(state, selectedOrganizationId),
+  )
+  const recentSessions = [...sessions]
+    .sort((left, right) => `${left.sessionDate}${left.startTime}`.localeCompare(`${right.sessionDate}${right.startTime}`))
+    .slice(0, 4)
+
   return (
     <div className="space-y-6">
       <PageHeader
-        eyebrow="Overview"
-        title="Attendance operations at a glance"
-        description="A desktop-first command center for monitoring organizations, session activity, attendance rate, and actionable exceptions."
-        actionLabel="Export summary"
+        eyebrow="Admin dashboard"
+        title="Follow the documented admin flow from setup to live attendance"
+        description={`The current workspace is ${selectedOrganization?.name ?? 'all accessible organizations'}. Keep the organization -> department -> user -> session -> attendance order so downstream actions stay context-aware.`}
+        secondaryAction={
+          <Link to="/app/sessions">
+            <Button variant="secondary">Manage sessions</Button>
+          </Link>
+        }
       />
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {dashboardStats.map((stat) => (
-          <Card key={stat.label}>
-            <p className="text-sm text-brand-muted">{stat.label}</p>
-            <div className="mt-4 flex items-end justify-between">
-              <p className="text-3xl font-semibold text-brand-text">{stat.value}</p>
-              <Badge tone={stat.tone}>{stat.change}</Badge>
-            </div>
-            <p className="mt-3 text-sm text-brand-muted">{stat.detail}</p>
-          </Card>
-        ))}
+        <StatCard
+          label="Organizations in scope"
+          value={metrics.organizationCount}
+          detail="Super admins can switch scope from the top bar."
+          badge={selectedOrganization ? 'Scoped' : 'Global'}
+          tone="info"
+        />
+        <StatCard
+          label="Attendees"
+          value={metrics.attendeeCount}
+          detail="Only attendees assigned to the selected scope are counted."
+          badge="Users"
+          tone="success"
+        />
+        <StatCard
+          label="Sessions"
+          value={metrics.sessionCount}
+          detail={`${metrics.activeSessionCount} currently active or ready to monitor.`}
+          badge="Flow"
+          tone="info"
+        />
+        <StatCard
+          label="Attendance rate"
+          value={`${metrics.attendanceRate}%`}
+          detail={`${metrics.lateCount} late records in the current dataset.`}
+          badge="Derived"
+          tone="warning"
+        />
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
+      <section className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
         <Card>
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-caption">Live activity</p>
-              <h2 className="mt-2 text-xl font-semibold text-brand-text">Attendance flow today</h2>
+              <p className="text-caption">Required flow order</p>
+              <h2 className="mt-2 text-xl font-semibold text-brand-text">What the docs expect admins to do next</h2>
             </div>
-            <Badge tone="success">Near real-time</Badge>
+            <Badge tone="info">Source of truth</Badge>
           </div>
           <div className="mt-6 grid gap-3">
-            {[72, 88, 64, 91, 76, 84, 93, 86].map((value, index) => (
-              <div key={index} className="space-y-2">
-                <div className="flex justify-between text-sm text-brand-muted">
-                  <span>{`${index + 8}:00`}</span>
-                  <span>{value}%</span>
-                </div>
-                <div className="h-3 rounded-full bg-slate-100">
-                  <div
-                    className="h-3 rounded-full bg-linear-to-r from-brand-primary to-brand-accent"
-                    style={{ width: `${value}%` }}
-                  />
-                </div>
-              </div>
-            ))}
+            {flowSteps.map((step, index) => {
+              const Icon = step.icon
+              return (
+                <Link
+                  key={step.title}
+                  to={step.to}
+                  className="rounded-3xl border bg-slate-50 p-4 transition hover:border-blue-200 hover:bg-blue-50"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex gap-4">
+                      <div className="flex size-11 items-center justify-center rounded-2xl bg-white text-brand-primary shadow-soft">
+                        <Icon className="size-5" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-brand-text">
+                          {index + 1}. {step.title}
+                        </p>
+                        <p className="mt-2 text-sm text-brand-muted">{step.description}</p>
+                      </div>
+                    </div>
+                    <MoveRight className="mt-1 size-4 shrink-0 text-brand-primary" />
+                  </div>
+                </Link>
+              )
+            })}
           </div>
         </Card>
 
-        <Card>
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold text-brand-text">Quick actions</h2>
-            <Activity className="size-4 text-brand-accent" />
-          </div>
-          <div className="mt-5 grid gap-3">
-            {[
-              ['Create session', 'Open a new attendance window with QR generation.'],
-              ['Register attendee', 'Add a new participant with department assignment.'],
-              ['Manual entry', 'Resolve scan failures or attendance disputes quickly.'],
-            ].map(([title, text]) => (
-              <button
-                type="button"
-                key={title}
-                className="rounded-2xl border bg-slate-50 p-4 text-left transition hover:border-blue-200 hover:bg-blue-50"
-              >
-                <div className="flex items-center justify-between">
-                  <p className="font-semibold text-brand-text">{title}</p>
-                  <ArrowUpRight className="size-4 text-brand-primary" />
-                </div>
-                <p className="mt-2 text-sm text-brand-muted">{text}</p>
-              </button>
-            ))}
+        <Card className="bg-slate-950 text-white">
+          <p className="text-caption text-slate-400">Current workspace</p>
+          <h2 className="mt-2 text-2xl font-semibold">
+            {selectedOrganization?.name ?? 'All organizations'}
+          </h2>
+          <p className="mt-4 text-sm text-slate-300">
+            Use the top-bar selector before building departments, user rosters, or sessions so the flow stays consistent with the documentation.
+          </p>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            <div className="rounded-3xl bg-white/5 p-4">
+              <p className="text-sm text-slate-400">Active sessions</p>
+              <p className="mt-3 text-3xl font-semibold">{metrics.activeSessionCount}</p>
+            </div>
+            <div className="rounded-3xl bg-white/5 p-4">
+              <p className="text-sm text-slate-400">Unread notifications</p>
+              <p className="mt-3 text-3xl font-semibold">{notifications.length}</p>
+            </div>
           </div>
         </Card>
       </section>
@@ -88,71 +172,59 @@ export function DashboardPage() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-caption">Sessions</p>
-              <h2 className="mt-2 text-xl font-semibold text-brand-text">Active and upcoming sessions</h2>
+              <h2 className="mt-2 text-xl font-semibold text-brand-text">Next sessions in the selected scope</h2>
             </div>
-            <Button variant="secondary">
-              <CalendarDays className="size-4" />
-              View calendar
-            </Button>
+            <Link to="/app/sessions">
+              <Button variant="secondary" size="sm">
+                Open session management
+              </Button>
+            </Link>
           </div>
           <div className="mt-6 space-y-3">
-            {sessions.map((session) => (
-              <div
-                key={session.id}
-                className="flex flex-col gap-4 rounded-3xl border bg-slate-50 p-4 sm:flex-row sm:items-center sm:justify-between"
-              >
-                <div>
-                  <div className="flex items-center gap-3">
-                    <p className="font-semibold text-brand-text">{session.title}</p>
-                    <Badge>{session.status}</Badge>
+            {recentSessions.map((session) => {
+              const department = departments.find((item) => item.id === session.departmentId)
+
+              return (
+                <div key={session.id} className="rounded-3xl border bg-slate-50 p-4">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                      <div className="flex items-center gap-3">
+                        <p className="font-semibold text-brand-text">{session.title}</p>
+                        <Badge>{session.status}</Badge>
+                      </div>
+                      <p className="mt-2 text-sm text-brand-muted">
+                        {department?.name ?? 'No department'} / {formatDateLabel(session.sessionDate)}
+                      </p>
+                    </div>
+                    <div className="text-sm text-brand-muted">
+                      <p>{formatWindow(session)}</p>
+                      <p className="mt-1">Grace: {session.graceMinutes} minutes</p>
+                    </div>
                   </div>
-                  <p className="mt-2 text-sm text-brand-muted">
-                    {session.department} • {session.organization}
-                  </p>
                 </div>
-                <div className="flex items-center gap-6">
-                  <div>
-                    <p className="text-sm font-medium text-brand-text">{session.window}</p>
-                    <p className="text-xs text-brand-muted">{session.date}</p>
-                  </div>
-                  <Button variant="secondary" size="sm">
-                    Open
-                  </Button>
-                </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </Card>
 
         <Card>
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold text-brand-text">System notifications</h2>
-            <Button variant="ghost" size="sm">
-              <Download className="size-4" />
-              Archive
-            </Button>
+            <div>
+              <p className="text-caption">Notifications</p>
+              <h2 className="mt-2 text-xl font-semibold text-brand-text">Outstanding follow-ups</h2>
+            </div>
+            <Badge tone="warning">{notifications.length} unread</Badge>
           </div>
-          <div className="mt-6 space-y-4">
-            {notifications.map((item) => (
-              <div key={item.id} className="rounded-2xl border p-4">
-                <div className="flex items-center justify-between gap-4">
-                  <p className="font-semibold text-brand-text">{item.title}</p>
-                  <Badge tone={item.tone}>{item.time}</Badge>
+          <div className="mt-6 space-y-3">
+            {notifications.map((notification) => (
+              <div key={notification.id} className="rounded-3xl border p-4">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="font-semibold text-brand-text">{notification.title}</p>
+                  <Badge tone={notification.tone}>{formatDateLabel(notification.createdAt)}</Badge>
                 </div>
-                <p className="mt-2 text-sm text-brand-muted">{item.message}</p>
+                <p className="mt-2 text-sm text-brand-muted">{notification.message}</p>
               </div>
             ))}
-          </div>
-          <div className="mt-6 rounded-3xl bg-slate-950 p-5 text-white">
-            <div className="flex items-center gap-3">
-              <Users className="size-5 text-cyan-300" />
-              <div>
-                <p className="font-semibold">Need an executive snapshot?</p>
-                <p className="mt-1 text-sm text-slate-300">
-                  Use reports to export department, session, or daily attendance views.
-                </p>
-              </div>
-            </div>
           </div>
         </Card>
       </section>
