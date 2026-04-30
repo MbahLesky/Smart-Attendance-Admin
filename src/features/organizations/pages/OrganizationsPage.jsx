@@ -98,7 +98,7 @@ export function OrganizationsPage() {
     <div className="space-y-6">
       <PageHeader
         eyebrow="Organizations"
-        title="Manage organization workspaces"
+        title="Manage organizations"
         description={
           canManageOrganizations
             ? 'The docs place organization management at the top of the admin workflow. Super admins create or update organizations before downstream department and user setup.'
@@ -183,7 +183,7 @@ export function OrganizationsPage() {
             <Input
               value={formState.name}
               onChange={(event) => setFormState((current) => ({ ...current, name: event.target.value }))}
-              placeholder="Northwind Academy"
+              placeholder="Bauhaven Organization"
             />
           </div>
           <div>
@@ -207,7 +207,7 @@ export function OrganizationsPage() {
             <Input
               value={formState.address}
               onChange={(event) => setFormState((current) => ({ ...current, address: event.target.value }))}
-              placeholder="12 Harbor Avenue, Seattle"
+              placeholder="Mile 4 Nkwen, Bamenda, Cameroon"
             />
           </div>
           <div className="sm:col-span-2">

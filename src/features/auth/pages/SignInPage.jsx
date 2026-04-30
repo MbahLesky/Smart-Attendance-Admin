@@ -71,8 +71,8 @@ export function SignInPage() {
 
   return (
     <AuthFormShell
-      title="Sign in to rollog"
-      description="Use a documented admin account to access rollog organizations, departments, users, sessions, attendance, and reports."
+      title="Sign in to Smart Attendance"
+      description="Log in to manage organizations, departments, users, sessions, and reports"
       footer={
         <>
           Need a new organization workspace?{' '}
@@ -97,7 +97,7 @@ export function SignInPage() {
             {authMethod === 'email' ? 'Email address' : 'Phone number'}
           </label>
           <Input
-            placeholder={authMethod === 'email' ? 'admin@organization.com' : '+1 (555) 555-0100'}
+            placeholder={authMethod === 'email' ? 'admin@organization.com' : '+237 677 876 543'}
             {...register('identifier')}
           />
           {errors.identifier ? (
@@ -141,18 +141,18 @@ export function SignInPage() {
           <button
             type="button"
             className="w-full rounded-2xl border border-blue-100 bg-white px-4 py-3 text-left transition hover:border-blue-300"
-            onClick={() => fillDemo('mia.reynolds@rollog.test', 'Admin123!', 'email')}
+            onClick={() => fillDemo('tangkafelicity@gmail.com', 'feli123', 'email')}
           >
             <p className="font-semibold text-brand-text">Super admin</p>
-            <p className="mt-1 text-sm text-brand-muted">mia.reynolds@rollog.test</p>
+            <p className="mt-1 text-sm text-brand-muted">tangkafelicity@gmail.com</p>
           </button>
           <button
             type="button"
             className="w-full rounded-2xl border border-blue-100 bg-white px-4 py-3 text-left transition hover:border-blue-300"
-            onClick={() => fillDemo('arthur.blake@northwind.edu', 'Northwind123!', 'email')}
+            onClick={() => fillDemo('mbahlesky@gmail.com', 'mbahlesky123', 'email')}
           >
             <p className="font-semibold text-brand-text">Organization admin</p>
-            <p className="mt-1 text-sm text-brand-muted">arthur.blake@northwind.edu</p>
+            <p className="mt-1 text-sm text-brand-muted">mbahlesky@gmail.com</p>
           </button>
         </div>
       </Card>

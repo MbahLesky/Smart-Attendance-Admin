@@ -98,8 +98,8 @@ export function DepartmentsPage() {
     <div className="space-y-6">
       <PageHeader
         eyebrow="Departments"
-        title="Create departments after organization selection"
-        description="The requirements documents place departments under organizations. Select the organization first, then add or edit its departments before registering users or sessions."
+        title="Create departments"
+        description="Select the organization first, then add or edit its departments before registering users or sessions."
         actionLabel="New department"
         onAction={openCreateDialog}
       />
@@ -200,7 +200,7 @@ export function DepartmentsPage() {
             <Input
               value={formState.description}
               onChange={(event) => setFormState((current) => ({ ...current, description: event.target.value }))}
-              placeholder="Lecture and lab attendance for degree cohorts."
+              placeholder="Attendance for classes and practicals"
             />
           </div>
         </div>

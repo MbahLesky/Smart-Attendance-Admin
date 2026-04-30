@@ -20,32 +20,32 @@ import { Card } from '../../../components/ui/card'
 
 const flowSteps = [
   {
-    title: 'Confirm organization scope',
-    description: 'Select the workspace before managing departments, users, sessions, or reports.',
+    title: 'Select organization',
+    description: 'Choose the organization you want to manage',
     to: '/app/organizations',
     icon: Building2,
   },
   {
     title: 'Create departments',
-    description: 'Departments sit under organizations and become the assignment point for attendees.',
+    description: 'Add departments to your organization',
     to: '/app/departments',
     icon: Building2,
   },
   {
-    title: 'Register users',
-    description: 'Attendees and organization admins are assigned after organization and department context is set.',
+    title: 'Add users',
+    description: 'Add students and staff to your organization',
     to: '/app/users',
     icon: Users2,
   },
   {
     title: 'Create sessions',
-    description: 'Sessions inherit the selected organization and department before QR can be opened.',
+    description: 'Create sessions for classes or events',
     to: '/app/sessions',
     icon: CalendarClock,
   },
   {
     title: 'Monitor attendance',
-    description: 'Attendance records and manual overrides are only available once a session is selected.',
+    description: 'Track attendance and make manual corrections',
     to: '/app/attendance',
     icon: ClipboardList,
   },
@@ -68,7 +68,7 @@ export function DashboardPage() {
     <div className="space-y-6">
       <PageHeader
         eyebrow="Admin dashboard"
-        title="Follow the documented admin flow from setup to live attendance"
+        title="Follow these steps to manage attendance"
         description={`The current workspace is ${selectedOrganization?.name ?? 'all accessible organizations'}. Keep the organization -> department -> user -> session -> attendance order so downstream actions stay context-aware.`}
         secondaryAction={
           <Link to="/app/sessions">

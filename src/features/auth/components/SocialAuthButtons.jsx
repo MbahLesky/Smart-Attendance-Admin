@@ -9,7 +9,7 @@ export function SocialAuthButtons() {
         fullWidth
         variant="secondary"
         type="button"
-        onClick={() => toast.info('Google authentication is UI-only in this prototype.')}
+        onClick={() => toast.info('Google login is not active')}
       >
         Continue with Google
       </Button>
@@ -17,7 +17,7 @@ export function SocialAuthButtons() {
         fullWidth
         variant="secondary"
         type="button"
-        onClick={() => toast.info('SSO connection will be added during backend integration.')}
+        onClick={() => toast.info('Company login will be added later')}
       >
         Continue with SSO
       </Button>

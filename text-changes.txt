@@ -1,0 +1,984 @@
+================================================================
+  SMART ATTENDANCE ADMIN — TEXT CHANGES FILE
+  HOW TO USE:
+    - Type your new text after "NEW:" on any line you want to change
+    - Leave "NEW:" blank if you want to keep the current text
+    - Save the file when done, then let me know and I will apply all changes
+================================================================
+
+
+---- LANDING PAGE -----------------------------------------------
+
+[1]  Badge label
+     CURRENT: Admin web prototype
+     NEW:Admin panel
+[2]  Hero heading
+     CURRENT: Run attendance operations from one calm, high-clarity workspace.
+     NEW:Manage attendance easily in one simple dashboard
+
+[3]  Hero subtext
+     CURRENT: Manage organizations, departments, attendees, attendance sessions, QR check-ins, manual overrides, and reporting in a UI aligned with the mobile product brand.
+     NEW:Handle schools, departments, students, sessions, QR check-ins, and reports in on a sigle dashboard
+
+[4]  Feature card 1 title
+     CURRENT: Real-time monitoring
+     NEW:
+
+[5]  Feature card 1 text
+     CURRENT: Track check-ins and attendance status live.
+     NEW:Track check-ins and attendance status in real time.
+
+[6]  Feature card 2 title
+     CURRENT: Session QR display
+     NEW:
+
+[7]  Feature card 2 text
+     CURRENT: Generate and present session codes cleanly.
+     NEW:Show QR codes for quick check-in
+
+[8]  Feature card 3 title
+     CURRENT: Reporting clarity
+     NEW:Simple reports
+
+[9]  Feature card 3 text
+     CURRENT: Inspect trends with export-ready summaries.
+     NEW:View and download attendance summaries
+
+[10] Bottom card 1 title
+     CURRENT: Secure role-aware design
+     NEW:Secure role-aware design
+
+[11] Bottom card 1 text
+     CURRENT: Built around super admin and organization admin responsibilities from the SRS.
+     NEW:Different roles for super admin and organization admin
+
+[12] Bottom card 2 title
+     CURRENT: Operational states included
+     NEW:Works in any situation
+
+[13] Bottom card 2 text
+     CURRENT: Loading, empty, error, success, disabled, and confirmation patterns are built in.
+     NEW:Handles loading, empty data, errors, and confirmations
+
+[14] Bottom card 3 title
+     CURRENT: Future-ready architecture
+     NEW:Ready for future updates
+
+[15] Bottom card 3 text
+     CURRENT: Feature-based React structure prepared for backend integration and offline-first work.
+     NEW:Easy to connect with backend and offline support
+
+
+---- SIGN IN PAGE -----------------------------------------------
+
+[16] Page title
+     CURRENT: Sign in to rollog
+     NEW:
+
+[17] Page description
+     CURRENT: Use a documented admin account to access rollog organizations, departments, users, sessions, attendance, and reports.
+     NEW:Log in to manage organizations, departments, users, sessions, and reports
+
+[18] Email placeholder
+     CURRENT: admin@organization.com
+     NEW:
+
+[19] Phone placeholder
+     CURRENT: +1 (555) 555-0100
+     NEW:+237 677 876 543
+
+[20] Demo account 1 label
+     CURRENT: Super admin
+     NEW:
+
+[21] Demo account 1 email
+     CURRENT: mia.reynolds@rollog.test
+     NEW: tangkafelicity@gmail.com 
+
+[22] Demo account 1 password
+     CURRENT: Admin123!
+     NEW:feli123
+
+[23] Demo account 2 label
+     CURRENT: Organization admin
+     NEW:
+
+[24] Demo account 2 email
+     CURRENT: arthur.blake@northwind.edu
+     NEW:mbahlesky@gmail.com
+
+[25] Demo account 2 password
+     CURRENT: Northwind123!
+     NEW:mbahlesky123
+
+
+---- REGISTER PAGE ----------------------------------------------
+
+[26] Page title
+     CURRENT: Create your rollog workspace
+     NEW:
+
+[27] Page description
+     CURRENT: Register an organization and primary organization admin account in rollog before adding departments, users, sessions, and attendance activity.
+     NEW:
+
+[28] Org name placeholder
+     CURRENT: Northwind Academy
+     NEW:Bauhaven Organization
+
+[29] Org address placeholder
+     CURRENT: 12 Harbor Avenue, Seattle
+     NEW:Mile 4 Nkwen, Bamenda, Cameroon
+
+[30] First name placeholder
+     CURRENT: Mia
+     NEW:Felicity
+
+[31] Last name placeholder
+     CURRENT: Reynolds
+     NEW:Tangka
+
+
+---- FORGOT PASSWORD PAGE ---------------------------------------
+
+[32] Page title
+     CURRENT: Recover access
+     NEW:
+
+[33] Page description
+     CURRENT: Request a verification code for password reset, then confirm the reset before returning to sign in.
+     NEW:
+
+
+---- VERIFY OTP PAGE --------------------------------------------
+
+[34] Demo OTP code (used across auth flows)
+     CURRENT: 482913
+     NEW:
+
+[35] Demo tip message
+     CURRENT: Demo tip: use 482913 to continue the local-only flow.
+     NEW:
+
+
+---- DASHBOARD PAGE ---------------------------------------------
+
+[36] Page eyebrow
+     CURRENT: Admin dashboard
+     NEW:
+
+[37] Page title
+     CURRENT: Follow the documented admin flow from setup to live attendance
+     NEW:Follow these steps to manage attendance
+
+[38] Flow step 1 title
+     CURRENT: Confirm organization scope
+     NEW:Select organization
+
+[39] Flow step 1 description
+     CURRENT: Select the workspace before managing departments, users, sessions, or reports.
+     NEW:Choose the organization you want to manage
+
+[40] Flow step 2 title
+     CURRENT: Create departments
+     NEW:Create departments
+
+[41] Flow step 2 description
+     CURRENT: Departments sit under organizations and become the assignment point for attendees.
+     NEW:Add departments to your organization
+
+[42] Flow step 3 title
+     CURRENT: Register users
+     NEW:Add users
+
+[43] Flow step 3 description
+     CURRENT: Attendees and organization admins are assigned after organization and department context is set.
+     NEW:Add students and staff to your organization
+
+[44] Flow step 4 title
+     CURRENT: Create sessions
+     NEW:Create sessions
+
+[45] Flow step 4 description
+     CURRENT: Sessions inherit the selected organization and department before QR can be opened.
+     NEW:Create sessions for classes or events
+
+[46] Flow step 5 title
+     CURRENT: Monitor attendance
+     NEW:Monitor attendance
+
+[47] Flow step 5 description
+     CURRENT: Attendance records and manual overrides are only available once a session is selected.
+     NEW:Track attendance and make manual corrections
+
+
+---- ORGANIZATIONS PAGE -----------------------------------------
+
+[48] Page title
+     CURRENT: Manage organization workspaces
+     NEW:Manage organizations
+
+[49] Org name placeholder (form)
+     CURRENT: Northwind Academy
+     NEW:Bauhaven Organization
+
+[50] Org address placeholder (form)
+     CURRENT: 12 Harbor Avenue, Seattle
+     NEW:Mile 4 Nkwen, Bamenda, Cameroon
+
+
+---- DEPARTMENTS PAGE -------------------------------------------
+
+[51] Page title
+     CURRENT: Create departments after organization selection
+     NEW:Create departments
+
+[52] Dept name placeholder (form)
+     CURRENT: Computer Science
+     NEW:
+
+[53] Dept description placeholder (form)
+     CURRENT: Lecture and lab attendance for degree cohorts.
+     NEW:Attendance for classes and practicals         
+
+
+---- ATTENDEES PAGE ---------------------------------------------
+
+[54] Page title
+     CURRENT: Register and supervise attendees
+     NEW:Manage attendees
+
+[55] Name placeholder (form)
+     CURRENT: Olivia Bennett
+     NEW:Tangka Felicity
+
+[56] Email placeholder (form)
+     CURRENT: olivia@northwind.edu
+     NEW:tangkafelicity@gmail.com
+
+[57] Department options
+     CURRENT: Computer Science, Emergency Nursing, Operations Trainees
+     NEW:Comouter Science,Software Engineering,Computer Engineering        
+
+
+---- SESSIONS PAGE ----------------------------------------------
+
+[58] Page title
+     CURRENT: Create sessions only after organization and department are selected
+     NEW:Create sessions
+
+[59] Session title placeholder (form)
+     CURRENT: Morning Assembly
+     NEW:Morning Assembly          
+
+[60] Session description placeholder (form)
+     CURRENT: Opening lecture attendance window for the cohort.
+     NEW:Attendance for morning lectures
+
+
+---- NOTIFICATIONS PAGE -----------------------------------------
+
+[61] Page title
+     CURRENT: Alerts, exports, and attendance exceptions
+     NEW:Notifications
+
+[62] Empty state title
+     CURRENT: You're all caught up
+     NEW:You're all caught up
+
+
+---- HISTORY PAGE -----------------------------------------------
+
+[63] Page title
+     CURRENT: Chronological record review
+     NEW:Attendance history
+
+[64] Page description
+     CURRENT: A history view for reviewing prior attendance outcomes, supporting the should-have history requirement in the SRS.
+     NEW:View past attendance records
+
+
+---- REPORTS PAGE -----------------------------------------------
+
+[65] Page title
+     CURRENT: Generate reports from the current organization, department, and session scope
+     NEW:Generate reports
+
+
+---- PROFILE PAGE -----------------------------------------------
+
+[66] Page title
+     CURRENT: Review the current admin profile
+     NEW:My profile
+
+
+---- SETTINGS PAGE ----------------------------------------------
+
+[67] Page title
+     CURRENT: Adjust the prototype behavior
+     NEW:Settings
+
+[68] Dark card title
+     CURRENT: Reset mock state
+     NEW:Reset data
+
+
+---- USERS PAGE -------------------------------------------------
+
+[69] Page title
+     CURRENT: Register users after organization and department selection
+     NEW:Manage users
+
+[70] First name placeholder
+     CURRENT: Olivia
+     NEW:Brian
+
+[71] Last name placeholder
+     CURRENT: Bennett
+     NEW:Achu
+
+[72] Email placeholder
+     CURRENT: olivia.bennett@northwind.edu
+     NEW:brainachu@gmail.com
+
+[73] Employee code placeholder
+     CURRENT: NW-CS-1001
+     NEW:NW-CS-1001
+
+[74] Default temp password
+     CURRENT: Attendee123!
+     NEW:Attendee123!
+
+
+---- 404 PAGE ---------------------------------------------------
+
+[75] Heading
+     CURRENT: That page is outside the documented flow
+     NEW: Page not found
+
+[76] Body text
+     CURRENT: Return to sign in or the dashboard to continue through the rollog admin journey.
+     NEW: Return to the dashboard to continue through the rollog admin journey.
+
+
+================================================================
+  MOCK DATA (values shown in tables and cards automatically)
+================================================================
+
+
+---- ORGANIZATIONS (mock-data.js) -------------------------------
+
+[77] Organization 1 name
+     CURRENT: Northwind Academy
+     NEW:Bauhaven Organization
+
+[78] Organization 1 email
+     CURRENT: ops@northwind.edu
+     NEW:bauhavenorg@gmail.com
+
+[79] Organization 1 phone
+     CURRENT: +1 (555) 104-2200
+     NEW:+237674345678
+
+[80] Organization 1 address
+     CURRENT: 12 Harbor Avenue, Seattle
+     NEW:Mile 4 Nkwen, Bamenda, Cameroon
+
+[81] Organization 1 admin name
+     CURRENT: Mia Reynolds
+     NEW:Tangka Felicity
+
+[82] Organization 2 name
+     CURRENT: Summit Health Institute
+     NEW:St Paul's College
+
+[83] Organization 2 email
+     CURRENT: admin@summithealth.org
+     NEW:adnid@stpaul.org
+
+[84] Organization 2 phone
+     CURRENT: +1 (555) 938-1100
+     NEW:+237674345678
+
+[85] Organization 2 address
+     CURRENT: 88 Crest Park, Denver
+     NEW:Mile 3 Nkwen, Bamenda, Cameroon
+
+[86] Organization 2 admin name
+     CURRENT: David Kim
+     NEW:Mr. Ndifor
+
+[87] Organization 3 name
+     CURRENT: Pioneer Training Center
+     NEW:St. Fautino's College
+
+[88] Organization 3 email
+     CURRENT: hello@pioneertraining.co
+     NEW:stfaustino@gmail.com
+
+[89] Organization 3 phone
+     CURRENT: +1 (555) 410-8910
+     NEW:+237674345678
+
+[90] Organization 3 address
+     CURRENT: 5 Market Lane, Austin
+     NEW:Mile 4 Nkwen, Bamenda, Cameroon
+
+[91] Organization 3 admin name
+     CURRENT: Angela Boyd
+     NEW:Mr. Achu
+
+
+---- DEPARTMENTS (mock-data.js) ---------------------------------
+
+[92] Department 1 name
+     CURRENT: Computer Science
+     NEW:
+
+[93] Department 1 lead
+     CURRENT: Aaron Blake
+     NEW:Mr. Achu
+
+[94] Department 1 description
+     CURRENT: Lecture and lab attendance for degree cohorts.
+     NEW:Programming and IT classes
+
+[95] Department 2 name
+     CURRENT: Emergency Nursing
+     NEW:Software Engineering
+
+[96] Department 2 lead
+     CURRENT: Nadine Costa
+     NEW:Mrs Grace
+
+[97] Department 2 description
+     CURRENT: Shift-based practical attendance monitoring.
+     NEW:
+
+[98] Department 3 name
+     CURRENT: Operations Trainees
+     NEW:Comouter Science
+
+[99] Department 3 lead
+     CURRENT: Joel Mason
+     NEW:Mr. Paul
+
+[100] Department 3 description
+      CURRENT: Weekly instructor-led sessions and workshops.
+      NEW:Computer Science classes
+
+
+---- ATTENDEES (mock-data.js) -----------------------------------
+
+[101] Attendee 1 name
+      CURRENT: Olivia Bennett
+      NEW:Brenda Ndzi
+
+[102] Attendee 1 email
+      CURRENT: olivia.bennett@northwind.edu
+      NEW:brenda.ndzi@bti.cm
+
+[103] Attendee 1 phone
+      CURRENT: +1 (555) 212-4101
+      NEW:+237674345678
+
+[104] Attendee 2 name
+      CURRENT: Liam Carter
+      NEW:Brian Achu
+
+[105] Attendee 2 email
+      CURRENT: liam.carter@summithealth.org
+      NEW:brianachu@gmail.com
+
+[106] Attendee 2 phone
+      CURRENT: +1 (555) 830-2229
+      NEW:+237674345678            
+
+[107] Attendee 3 name
+      CURRENT: Sophia Evans
+      NEW:Tangka Felicity
+
+[108] Attendee 3 email
+      CURRENT: sophia.evans@pioneertraining.co
+      NEW:tangkafelicity@gmail.com
+
+[109] Attendee 3 phone
+      CURRENT: +1 (555) 180-7714
+      NEW:+237674345678       
+
+[110] Attendee 4 name
+      CURRENT: Noah Johnson
+      NEW:Ndzifor Ngwa
+
+[111] Attendee 4 email
+      CURRENT: noah.johnson@northwind.edu
+      NEW:ndziforngwa@gmail.com
+
+[112] Attendee 4 phone
+      CURRENT: +1 (555) 401-9191
+      NEW:+237674345678  
+
+
+---- SESSIONS (mock-data.js) ------------------------------------
+
+[113] Session 1 title
+      CURRENT: Morning Assembly
+      NEW:Programming 101
+
+[114] Session 1 time window
+      CURRENT: 08:00 - 09:00
+      NEW:08:00 - 10:00
+
+[115] Session 2 title
+      CURRENT: Clinical Lab Rotation
+      NEW:Software Engineering
+
+[116] Session 2 time window
+      CURRENT: 09:30 - 11:30
+      NEW:10:00 - 12:00
+
+[117] Session 3 title
+      CURRENT: Safety Workshop
+      NEW:Data Structures
+
+[118] Session 3 time window
+      CURRENT: 13:00 - 15:00
+      NEW:12:00 - 14:00
+
+
+---- DASHBOARD STATS (mock-data.js) -----------------------------
+
+[119] Stat 1 label
+      CURRENT: Registered attendees
+      NEW:
+
+[120] Stat 1 value
+      CURRENT: 1,284
+      NEW:
+
+[121] Stat 1 detail
+      CURRENT: Across 8 active organizations
+      NEW:Across all organization
+
+[122] Stat 2 label
+      CURRENT: Sessions today
+      NEW:
+
+[123] Stat 2 value
+      CURRENT: 18
+      NEW:
+
+[124] Stat 2 detail
+      CURRENT: 4 currently accepting check-ins
+      NEW:3 active now
+
+[125] Stat 3 value
+      CURRENT: 93.8%
+      NEW:
+
+[126] Stat 3 detail
+      CURRENT: Rolling 30-day average
+      NEW:Monthly average
+
+[127] Stat 4 value
+      CURRENT: 14
+      NEW:
+
+[128] Stat 4 detail
+      CURRENT: Lower than last week
+      NEW:Fewer than last week
+
+
+---- NOTIFICATIONS (mock-data.js) -------------------------------
+
+[129] Notification 1 title
+      CURRENT: Attendance threshold alert
+      NEW:Low attendance alert
+[130] Notification 1 message
+      CURRENT: Emergency Nursing dropped below the 85% threshold this week.
+      NEW:Software Engineering dropped below 85% this week
+
+[131] Notification 2 title
+      CURRENT: QR session generated
+      NEW:New session created
+
+[132] Notification 2 message
+      CURRENT: Morning Assembly is ready to be displayed for check-in.
+      NEW:Data Structures is ready to be displayed for check-in
+
+[133] Notification 3 title
+      CURRENT: Report export completed
+      NEW:Report ready
+
+[134] Notification 3 message
+      CURRENT: March attendance report is available for download.
+      NEW:Monthly report is ready to download
+
+
+================================================================
+  REMAINING PAGES & SHARED COMPONENTS
+================================================================
+
+
+---- APP LOGO (AppLogo.jsx) -------------------------------------
+
+[135] Logo alt text (screen readers)
+      CURRENT: rollog
+      NEW:
+
+[136] App name text (shown next to logo)
+      CURRENT: Smart Attendance
+      NEW:
+
+
+---- AUTH FORM SHELL (AuthFormShell.jsx) ------------------------
+
+[137] Eyebrow above every auth form
+      CURRENT: Secure access
+      NEW:
+
+[138] Footer legal line
+      CURRENT: By continuing, you agree to the rollog terms and mock privacy notice.
+      NEW:
+
+[139] Footer link label
+      CURRENT: Need the product overview?
+      NEW:
+
+[140] Footer link text
+      CURRENT: Return to landing page
+      NEW:
+
+
+---- SOCIAL AUTH BUTTONS (SocialAuthButtons.jsx) ----------------
+
+[141] Button label
+      CURRENT: Continue with Google
+      NEW:
+
+[142] Button label
+      CURRENT: Continue with SSO
+      NEW:
+
+[143] Google toast message
+      CURRENT: Google authentication is UI-only in this prototype.
+      NEW:Google login is not active 
+
+[144] SSO toast message
+      CURRENT: SSO connection will be added during backend integration.
+      NEW:Company login will be added later
+
+
+---- SIDEBAR (Sidebar.jsx) --------------------------------------
+
+[145] Nav group 1 heading
+      CURRENT: Core
+      NEW:Main
+
+[146] Nav item label
+      CURRENT: Dashboard
+      NEW:
+
+[147] Nav item label
+      CURRENT: Organizations
+      NEW:
+
+[148] Nav item label
+      CURRENT: Departments
+      NEW:
+
+[149] Nav item label
+      CURRENT: Users
+      NEW:
+
+[150] Nav item label
+      CURRENT: Sessions
+      NEW:
+
+[151] Nav item label
+      CURRENT: Attendance
+      NEW:
+
+[152] Nav item label
+      CURRENT: Reports
+      NEW:
+
+[153] Nav group 2 heading
+      CURRENT: Account
+      NEW:
+
+[154] Nav item label
+      CURRENT: Profile
+      NEW:
+
+[155] Nav item label
+      CURRENT: Settings
+      NEW:
+
+[156] Sidebar footer line 1
+      CURRENT: Docs-driven prototype
+      NEW: Docs-driven
+
+[157] Sidebar footer line 2
+      CURRENT: The current flows stay frontend-only, but the state shape already mirrors future backend entities.
+      NEW: // remove text and leave space blank
+
+
+---- TOPBAR (Topbar.jsx) ----------------------------------------
+
+[158] Search placeholder
+      CURRENT: Search current workspace context
+      NEW:Search
+
+[159] Status badge
+      CURRENT: System healthy
+      NEW:System working
+
+[160] Scope selector label
+      CURRENT: Organization scope
+      NEW:Organization
+
+[161] Scope fallback (no org selected)
+      CURRENT: Select a workspace
+      NEW:Select organization
+
+[162] Prototype mode badge
+      CURRENT: Prototype mode
+      NEW:// remove badge and leave nothing there
+
+[163] Sign out button
+      CURRENT: Sign out
+      NEW:
+
+
+---- SESSION DETAILS PAGE (SessionDetailsPage.jsx) --------------
+
+[164] Page eyebrow
+      CURRENT: Session details
+      NEW:
+
+[165] Page description
+      CURRENT: Session details sit between session creation and QR/attendance actions. Review the selected organization, department, schedule, and participant scope before opening QR.
+      NEW:Check session information before starting attendance
+
+[166] Back button
+      CURRENT: Back to sessions
+      NEW:
+
+[167] Dark card caption
+      CURRENT: Selected context
+      NEW:Selected session
+
+[168] Stat card label
+      CURRENT: Participants
+      NEW:
+
+[169] Stat card label
+      CURRENT: Recorded check-ins
+      NEW:
+
+[170] Stat card label
+      CURRENT: Grace minutes
+      NEW:
+
+[171] Roster card caption
+      CURRENT: Participant roster
+      NEW:
+
+[172] Roster card heading
+      CURRENT: Review before QR and attendance actions
+      NEW:
+
+[173] Roster action button
+      CURRENT: Open attendance view
+      NEW:
+
+[174] Empty state title (session not found)
+      CURRENT: Session not found
+      NEW:
+
+[175] Empty state description (session not found)
+      CURRENT: The selected session could not be located in the mock store. Return to session management and choose another session.
+      NEW:This session is not available. Please go back and choose another one
+
+
+---- SESSION QR PAGE (SessionQrPage.jsx) ------------------------
+
+[176] Page eyebrow
+      CURRENT: Session QR
+      NEW:
+
+[177] Page description
+      CURRENT: This QR view is only available after the organization, department, and session have already been selected. It stays attached to the chosen session context.
+      NEW:Show this QR code for students to scan
+
+[178] Back button
+      CURRENT: Back to details
+      NEW:
+
+[179] Dark card caption
+      CURRENT: Selected session
+      NEW:Current session
+
+[180] QR token label
+      CURRENT: Mock token
+      NEW:Code
+
+[181] Summary card heading
+      CURRENT: QR context summary
+      NEW:Session summary
+
+[182] Summary row label
+      CURRENT: Date
+      NEW:
+
+[183] Summary row label
+      CURRENT: Window
+      NEW:
+
+[184] Summary row label
+      CURRENT: Grace period
+      NEW:
+
+[185] Summary row label
+      CURRENT: Participants
+      NEW:
+
+[186] Summary row label
+      CURRENT: Recorded check-ins
+      NEW:
+
+[187] Actions card heading
+      CURRENT: Presentation actions
+      NEW:
+
+[188] Button
+      CURRENT: Present fullscreen
+      NEW:
+
+[189] Button
+      CURRENT: Reset timer
+      NEW:
+
+[190] Empty state title (no QR context)
+      CURRENT: QR context is missing
+      NEW:
+
+[191] Empty state description (no QR context)
+      CURRENT: Open the QR flow from a session so the selected organization, department, and session context are all known.
+      NEW:Please open QR from a session
+
+
+---- QR ATTENDANCE PAGE (QRAttendancePage.jsx) ------------------
+
+[192] Page eyebrow
+      CURRENT: QR attendance
+      NEW:
+
+[193] Page title
+      CURRENT: Display session QR for attendee scan
+      NEW:
+
+[194] Page description
+      CURRENT: Desktop-friendly QR display page for projecting or presenting the code during a session.
+      NEW:Displays QR Code
+
+[195] Action button label
+      CURRENT: Regenerate token
+      NEW:Generate new code
+
+[196] Dark card caption
+      CURRENT: Live session code
+      NEW:Live QR code
+
+[197] Session name shown on QR card
+      CURRENT: Morning Assembly
+      NEW:Morning Class
+
+[198] Badge text
+      CURRENT: Accepting check-ins
+      NEW:Open
+
+[199] Token timer text
+      CURRENT: Token expires in 04:32
+      NEW:Code expires in 04:32
+
+[200] Controls card heading
+      CURRENT: Presentation controls
+      NEW:Controls
+
+[201] Stat row label
+      CURRENT: Session window
+      NEW:Time
+
+[202] Stat row value
+      CURRENT: 08:00 - 09:00
+      NEW:
+
+[203] Stat row label
+      CURRENT: Grace period
+      NEW:
+
+[204] Stat row value
+      CURRENT: 10 minutes
+      NEW:
+
+[205] Stat row label
+      CURRENT: Expected attendees
+      NEW:
+
+[206] Stat row value
+      CURRENT: 280
+      NEW:
+
+[207] Stat row label
+      CURRENT: Current check-ins
+      NEW:
+
+[208] Stat row value
+      CURRENT: 241
+      NEW:
+
+[209] Button
+      CURRENT: Present fullscreen
+      NEW:Full screen
+
+[210] Button
+      CURRENT: Reset timer
+      NEW:
+
+
+---- ATTENDANCE RESULT PAGE (AttendanceResultPage.jsx) ----------
+
+[211] Page eyebrow
+      CURRENT: Attendance confirmation
+      NEW:
+
+[212] Page title
+      CURRENT: QR check-in result preview
+      NEW:Check-in result
+
+[213] Page description
+      CURRENT: A UI-only result screen that mirrors the mobile confirmation step while still being useful for desktop review and demos.
+      NEW:Shows if student checked in successfully
+
+[214] Success card heading
+      CURRENT: Check-in successful
+      NEW:
+
+[215] Success card text
+      CURRENT: Olivia Bennett checked into Morning Assembly at 08:03, which falls within the configured grace period.
+      NEW:Brenda Ndzi checked in to Morning Class at 08:05 on time
+
+[216] Late card heading
+      CURRENT: Late arrival example
+      NEW:Late check-in
+
+[217] Late card text
+      CURRENT: Liam Carter checked in at 08:14, which exceeded the 10-minute grace period for the session.
+      NEW:Junior Tambo checked in at 08:20 which is after the allowed time
+
+
+================================================================
+  DONE — Save this file and let me know when ready!
+================================================================

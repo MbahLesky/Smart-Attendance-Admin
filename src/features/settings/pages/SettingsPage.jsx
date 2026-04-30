@@ -14,7 +14,7 @@ export function SettingsPage() {
     <div className="space-y-6">
       <PageHeader
         eyebrow="Settings"
-        title="Adjust the prototype behavior"
+        title="Settings"
         description="Settings remain frontend-only in this phase, but they are centralized so backend preferences can replace them later without rewriting the UI."
       />
 
@@ -45,10 +45,10 @@ export function SettingsPage() {
         </Card>
 
         <Card className="bg-slate-950 text-white">
-          <p className="text-caption text-slate-400">Prototype tools</p>
-          <h2 className="mt-2 text-2xl font-semibold">Reset mock state</h2>
+          <p className="text-caption text-slate-400">Data tools</p>
+          <h2 className="mt-2 text-2xl font-semibold">Reset data</h2>
           <p className="mt-4 text-sm text-slate-300">
-            Reset the local store to the seeded dataset if you want to replay the docs-aligned admin flow from the start.
+            Reset the local store to the seeded dataset.
           </p>
           <div className="mt-6 rounded-3xl bg-white/5 p-4">
             <p className="text-sm text-slate-400">Default grace minutes</p>
@@ -58,11 +58,14 @@ export function SettingsPage() {
             className="mt-6 w-full"
             variant="secondary"
             onClick={() => {
-              resetDemo()
-              toast.success('Prototype data reset to the seeded state.')
+              const confirm = window.confirm('Are you sure you want to reset all data? This will clear all changes.')
+              if (confirm) {
+                resetStore()
+                toast.success('Data reset to the seeded state.')
+              }
             }}
           >
-            Reset prototype data
+            Reset data
           </Button>
         </Card>
       </section>

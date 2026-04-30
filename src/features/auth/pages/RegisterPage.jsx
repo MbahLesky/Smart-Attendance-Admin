@@ -52,8 +52,8 @@ export function RegisterPage() {
 
   return (
     <AuthFormShell
-      title="Create your rollog workspace"
-      description="Register an organization and primary organization admin account in rollog before adding departments, users, sessions, and attendance activity."
+      title="Create your Smart Attendance workspace"
+      description="Register an organization and primary organization admin account before adding departments, users, sessions, and attendance activity."
       footer={
         <>
           Already have access?{' '}
@@ -67,26 +67,26 @@ export function RegisterPage() {
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="sm:col-span-2">
             <label className="mb-2 block text-label">Organization name</label>
-            <Input placeholder="Northwind Academy" {...register('organizationName')} />
+            <Input placeholder="Bauhaven Organization" {...register('organizationName')} />
             {errors.organizationName ? (
               <p className="mt-2 text-sm text-brand-danger">{errors.organizationName.message}</p>
             ) : null}
           </div>
           <div className="sm:col-span-2">
             <label className="mb-2 block text-label">Organization address</label>
-            <Input placeholder="12 Harbor Avenue, Seattle" {...register('address')} />
+            <Input placeholder="Mile 4 Nkwen, Bamenda, Cameroon" {...register('address')} />
             {errors.address ? <p className="mt-2 text-sm text-brand-danger">{errors.address.message}</p> : null}
           </div>
           <div>
             <label className="mb-2 block text-label">Admin first name</label>
-            <Input placeholder="Mia" {...register('firstName')} />
+            <Input placeholder="Felicity" {...register('firstName')} />
             {errors.firstName ? (
               <p className="mt-2 text-sm text-brand-danger">{errors.firstName.message}</p>
             ) : null}
           </div>
           <div>
             <label className="mb-2 block text-label">Admin last name</label>
-            <Input placeholder="Reynolds" {...register('lastName')} />
+            <Input placeholder="Tangka" {...register('lastName')} />
             {errors.lastName ? (
               <p className="mt-2 text-sm text-brand-danger">{errors.lastName.message}</p>
             ) : null}

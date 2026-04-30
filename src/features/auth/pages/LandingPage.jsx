@@ -25,13 +25,12 @@ export function LandingPage() {
 
         <section className="mt-12 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div>
-            <Badge tone="info">Admin web prototype</Badge>
+            <Badge tone="info">Admin panel</Badge>
             <h1 className="mt-6 text-display max-w-3xl">
-              Run attendance operations from one calm, high-clarity workspace.
+              Manage attendance easily in one simple dashboard
             </h1>
             <p className="mt-5 max-w-2xl text-lg text-brand-muted">
-              Manage organizations, departments, attendees, attendance sessions, QR check-ins,
-              manual overrides, and reporting in a UI aligned with the mobile product brand.
+              Handle schools, departments, students, sessions, QR check-ins, and reports in one simple dashboard.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/sign-in">
@@ -48,9 +47,9 @@ export function LandingPage() {
             </div>
             <div className="mt-8 grid gap-4 sm:grid-cols-3">
               {[
-                ['Real-time monitoring', 'Track check-ins and attendance status live.'],
-                ['Session QR display', 'Generate and present session codes cleanly.'],
-                ['Reporting clarity', 'Inspect trends with export-ready summaries.'],
+                ['Real-time monitoring', 'Track check-ins and attendance status in real time.'],
+                ['Session QR display', 'Show QR codes for quick check-in'],
+                ['Simple reports', 'View and download attendance summaries'],
               ].map(([title, description]) => (
                 <Card key={title} className="p-5">
                   <p className="text-sm font-semibold text-brand-text">{title}</p>
@@ -109,17 +108,17 @@ export function LandingPage() {
             {
               icon: ShieldCheck,
               title: 'Secure role-aware design',
-              description: 'Built around super admin and organization admin responsibilities from the SRS.',
+              description: 'Different roles for super admin and organization admin',
             },
             {
               icon: CheckCircle2,
-              title: 'Operational states included',
-              description: 'Loading, empty, error, success, disabled, and confirmation patterns are built in.',
+              title: 'Works in any situation',
+              description: 'Handles loading, empty data, errors, and confirmations',
             },
             {
               icon: Sparkles,
-              title: 'Future-ready architecture',
-              description: 'Feature-based React structure prepared for backend integration and offline-first work.',
+              title: 'Ready for future updates',
+              description: 'Easy to connect with backend and offline support',
             },
           ].map((item) => {
             const Icon = item.icon

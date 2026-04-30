@@ -19,20 +19,19 @@ export function AuthLayout() {
             <div className="relative flex h-full flex-col justify-between">
               <AppLogo />
               <div className="max-w-xl">
-                <p className="text-caption">rollog</p>
-                <h1 className="mt-4 text-display">
-                  Admin attendance flows built around organizations, departments, sessions, and live monitoring.
+                <p className="text-caption">Smart Attendance</p>
+                <h1 className="mt-4 text-headline">
+                  Manage attendance easily across your organization. Create departments, add users, set up sessions, and track attendance in real time. Simply sign in, choose your organization, and control everything from one dashboard.
                 </h1>
-                <p className="mt-4 max-w-lg text-body">
-                  This desktop-first prototype follows the documented web journey: sign in, choose an organization
-                  context, manage departments and users, create sessions, then open QR and attendance monitoring flows.
+                <p className="mt-1 text-body text-slate-300">
+                  Sign in to manage your organization, handle departments, and monitor upcoming attendance sessions.
                 </p>
               </div>
               <div className="grid grid-cols-3 gap-4">
                 {[
                   ['3', 'Organizations'],
                   ['5', 'Core admin flows'],
-                  ['100%', 'Frontend only'],
+                  ['100%', 'Secure access'],
                 ].map(([value, label]) => (
                   <div key={label} className="rounded-2xl border bg-white/80 p-4 backdrop-blur">
                     <p className="text-2xl font-semibold text-brand-text">{value}</p>

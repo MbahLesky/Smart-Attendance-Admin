@@ -188,8 +188,8 @@ export function SessionsPage() {
     <div className="space-y-6">
       <PageHeader
         eyebrow="Sessions"
-        title="Create sessions only after organization and department are selected"
-        description="The documentation puts QR behind session creation. This page keeps that order by requiring organization and department context first, then exposing QR actions from the session itself."
+        title="Create sessions"
+        description="Select organization and department context first, then create sessions and open QR check-in."
         actionLabel="New session"
         onAction={openCreateDialog}
       />
@@ -318,7 +318,7 @@ export function SessionsPage() {
             <Input
               value={formState.description}
               onChange={(event) => setFormState((current) => ({ ...current, description: event.target.value }))}
-              placeholder="Opening lecture attendance window for the cohort."
+              placeholder="Attendance for morning lectures"
             />
           </div>
           <div>

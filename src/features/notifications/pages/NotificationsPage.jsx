@@ -19,7 +19,7 @@ export function NotificationsPage() {
     <div className="space-y-6">
       <PageHeader
         eyebrow="Notifications"
-        title="Alerts, exports, and attendance exceptions"
+        title="Notifications"
         description="A clean inbox for system events and operational follow-up."
         secondaryAction={
           <Tabs

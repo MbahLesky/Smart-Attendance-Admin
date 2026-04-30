@@ -39,7 +39,7 @@ export function SessionQrPage() {
     return (
       <EmptyState
         title="QR context is missing"
-        description="Open the QR flow from a session so the selected organization, department, and session context are all known."
+        description="Please open QR from a session"
         actionLabel="Back to sessions"
         onAction={() => navigate('/app/sessions')}
       />
@@ -62,7 +62,7 @@ export function SessionQrPage() {
       <PageHeader
         eyebrow="Session QR"
         title={`${session.title} QR display`}
-        description="This QR view is only available after the organization, department, and session have already been selected. It stays attached to the chosen session context."
+        description="Show this QR code for students to scan"
         secondaryAction={
           <Link to={`/app/sessions/${session.id}`}>
             <Button variant="secondary">
@@ -79,7 +79,7 @@ export function SessionQrPage() {
         <Card className="bg-slate-950 text-white">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-caption text-slate-400">Selected session</p>
+              <p className="text-caption text-slate-400">Current session</p>
               <h2 className="mt-2 text-2xl font-semibold">{session.title}</h2>
               <p className="mt-2 text-sm text-slate-300">
                 {organization?.name} / {department?.name ?? 'Unassigned department'}
@@ -97,14 +97,14 @@ export function SessionQrPage() {
           </div>
 
           <div className="mt-6 text-center">
-            <p className="text-sm text-slate-300">Mock token</p>
+            <p className="text-sm text-slate-300">Code</p>
             <p className="mt-2 font-mono text-lg tracking-[0.2em] text-cyan-300">{session.qrToken}</p>
           </div>
         </Card>
 
         <div className="space-y-6">
           <Card>
-            <h2 className="text-xl font-semibold text-brand-text">QR context summary</h2>
+            <h2 className="text-xl font-semibold text-brand-text">Session summary</h2>
             <div className="mt-5 space-y-3">
               {[
                 ['Date', formatDateLabel(session.sessionDate)],
@@ -124,11 +124,11 @@ export function SessionQrPage() {
           <Card>
             <h2 className="text-xl font-semibold text-brand-text">Presentation actions</h2>
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
-              <Button variant="secondary" onClick={() => toast.info('Fullscreen presentation can be added to the final kiosk view later.')}>
+              <Button variant="secondary" onClick={() => toast.info('Fullscreen presentation will be added soon.')}>
                 <Expand className="size-4" />
                 Present fullscreen
               </Button>
-              <Button variant="secondary" onClick={() => toast.success('Timer reset in the prototype state.')}>
+              <Button variant="secondary" onClick={() => toast.success('Timer reset.')}>
                 <TimerReset className="size-4" />
                 Reset timer
               </Button>

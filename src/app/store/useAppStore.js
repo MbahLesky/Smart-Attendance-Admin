@@ -117,7 +117,7 @@ export const useAppStore = create(
         if (!matchedUser) {
           return {
             success: false,
-            message: 'The credentials do not match an active admin account in the prototype data.',
+            message: 'The credentials do not match an active admin account.',
           }
         }
 

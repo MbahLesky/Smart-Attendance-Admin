@@ -22,8 +22,8 @@ export function ProfilePage() {
     <div className="space-y-6">
       <PageHeader
         eyebrow="Profile"
-        title="Review the current admin profile"
-        description="Profile editing is lightweight in this prototype, but it still reads and updates centralized state rather than page-local mock values."
+        title="My profile"
+        description="Profile editing is disabled for now."
       />
 
       <section className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">

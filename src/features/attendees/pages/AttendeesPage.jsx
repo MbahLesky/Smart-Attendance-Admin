@@ -62,7 +62,7 @@ export function AttendeesPage() {
     <div className="space-y-6">
       <PageHeader
         eyebrow="Attendee management"
-        title="Register and supervise attendees"
+        title="Manage attendees"
         description="This table mirrors the documented attendee registration flow with department assignment and status visibility."
         actionLabel="Add attendee"
         onAction={() => setOpen(true)}
@@ -106,7 +106,7 @@ export function AttendeesPage() {
             </Button>
             <Button
               onClick={() => {
-                toast.success('Attendee created in local prototype mode.')
+                toast.success('Attendee created successfully.')
                 setOpen(false)
               }}
             >
@@ -118,11 +118,11 @@ export function AttendeesPage() {
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className="mb-2 block text-label">Full name</label>
-            <Input placeholder="Olivia Bennett" />
+            <Input placeholder="Tangka Felicity" />
           </div>
           <div>
             <label className="mb-2 block text-label">Email address</label>
-            <Input placeholder="olivia@northwind.edu" />
+            <Input placeholder="tangkafelicity@gmail.com" />
           </div>
           <div>
             <label className="mb-2 block text-label">Phone number</label>
@@ -135,26 +135,19 @@ export function AttendeesPage() {
                 Assign department
               </option>
               <option>Computer Science</option>
-              <option>Emergency Nursing</option>
-              <option>Operations Trainees</option>
+              <option>Software Engineering</option>
+              <option>Computer Engineering</option>
             </Select>
           </div>
         </div>
       </Dialog>
 
-      <Card className="bg-blue-50">
-        <div className="flex items-start gap-4">
-          <div className="rounded-2xl bg-white p-3">
-            <UserPlus className="size-5 text-brand-primary" />
-          </div>
-          <div>
-            <p className="font-semibold text-brand-text">Prototype behavior</p>
-            <p className="mt-2 text-sm text-brand-muted">
-              Forms, actions, and validation are fully interactive locally while staying disconnected from the backend.
-            </p>
-          </div>
-        </div>
-      </Card>
+      <div className="rounded-2xl border bg-slate-50 p-4">
+        <p className="font-semibold text-brand-text">Notes</p>
+        <p className="mt-1 text-sm text-brand-muted">
+          Attendees added here become part of the organization roster and can be selected when building sessions.
+        </p>
+      </div>
     </div>
   )
 }

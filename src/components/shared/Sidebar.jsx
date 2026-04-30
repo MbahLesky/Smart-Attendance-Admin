@@ -21,7 +21,7 @@ export function Sidebar() {
   const showOrganizations = currentUser?.role === 'super_admin'
   const navGroups = [
     {
-      title: 'Core',
+      title: 'Main',
       items: [
         { to: '/app/dashboard', label: 'Dashboard', icon: LayoutDashboard },
         ...(showOrganizations
@@ -80,10 +80,7 @@ export function Sidebar() {
         ))}
       </div>
       <div className="border-t bg-slate-50/70 px-5 py-4">
-        <p className="text-sm font-medium text-brand-text">Docs-driven prototype</p>
-        <p className="mt-1 text-xs text-brand-muted">
-          The current flows stay frontend-only, but the state shape already mirrors future backend entities.
-        </p>
+        <p className="text-sm font-medium text-brand-text">Docs-driven</p>
       </div>
     </aside>
   )

@@ -9,8 +9,8 @@ export function AttendanceResultPage() {
     <div className="space-y-6">
       <PageHeader
         eyebrow="Attendance confirmation"
-        title="QR check-in result preview"
-        description="A UI-only result screen that mirrors the mobile confirmation step while still being useful for desktop review and demos."
+        title="Check-in result"
+        description="Shows if student checked in successfully"
       />
 
       <div className="grid gap-6 lg:grid-cols-2">
@@ -25,7 +25,7 @@ export function AttendanceResultPage() {
                 <Badge tone="success">Present</Badge>
               </div>
               <p className="mt-3 text-sm text-brand-muted">
-                Olivia Bennett checked into Morning Assembly at 08:03, which falls within the configured grace period.
+                Brenda Ndzi checked in to Morning Class at 08:05 on time
               </p>
             </div>
           </div>
@@ -38,11 +38,11 @@ export function AttendanceResultPage() {
             </div>
             <div>
               <div className="flex items-center gap-3">
-                <h2 className="text-xl font-semibold text-brand-text">Late arrival example</h2>
+                <h2 className="text-xl font-semibold text-brand-text">Late check-in</h2>
                 <Badge tone="warning">Late</Badge>
               </div>
               <p className="mt-3 text-sm text-brand-muted">
-                Liam Carter checked in at 08:14, which exceeded the 10-minute grace period for the session.
+                Junior Tambo checked in at 08:20 which is after the allowed time
               </p>
             </div>
           </div>

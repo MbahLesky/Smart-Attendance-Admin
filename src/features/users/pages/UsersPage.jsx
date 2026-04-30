@@ -189,7 +189,7 @@ export function UsersPage() {
     <div className="space-y-6">
       <PageHeader
         eyebrow="User management"
-        title="Register users after organization and department selection"
+        title="Manage users"
         description="The web flow in the docs places users under an organization and, for attendees, under a department. That scope is enforced here before new users can be created."
         actionLabel="New user"
         onAction={openCreateDialog}
@@ -268,7 +268,7 @@ export function UsersPage() {
             <Input
               value={formState.firstName}
               onChange={(event) => setFormState((current) => ({ ...current, firstName: event.target.value }))}
-              placeholder="Olivia"
+              placeholder="Brian"
             />
           </div>
           <div>
@@ -276,7 +276,7 @@ export function UsersPage() {
             <Input
               value={formState.lastName}
               onChange={(event) => setFormState((current) => ({ ...current, lastName: event.target.value }))}
-              placeholder="Bennett"
+              placeholder="Achu"
             />
           </div>
           <div>
@@ -284,7 +284,7 @@ export function UsersPage() {
             <Input
               value={formState.email}
               onChange={(event) => setFormState((current) => ({ ...current, email: event.target.value }))}
-              placeholder="olivia.bennett@northwind.edu"
+              placeholder="brainachu@gmail.com"
             />
           </div>
           <div>

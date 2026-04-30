@@ -16,7 +16,7 @@ export function AuthFormShell({ title, description, footer, children }) {
       {children}
       {footer ? <div className="mt-6 text-sm text-brand-muted">{footer}</div> : null}
       <p className="mt-8 text-xs text-brand-muted">
-        By continuing, you agree to the rollog terms and mock privacy notice.
+        By continuing, you agree to the Smart Attendance terms and privacy notice.
       </p>
       <p className="mt-4 text-xs text-brand-muted">
         Need the product overview? <Link className="text-brand-primary" to="/">Return to landing page</Link>

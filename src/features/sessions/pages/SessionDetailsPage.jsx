@@ -52,7 +52,7 @@ export function SessionDetailsPage() {
     return (
       <EmptyState
         title="Session not found"
-        description="The selected session could not be located in the mock store. Return to session management and choose another session."
+        description="This session is not available. Please go back and choose another one"
         actionLabel="Back to sessions"
         onAction={() => navigate('/app/sessions')}
       />
@@ -82,7 +82,7 @@ export function SessionDetailsPage() {
       <PageHeader
         eyebrow="Session details"
         title={session.title}
-        description="Session details sit between session creation and QR/attendance actions. Review the selected organization, department, schedule, and participant scope before opening QR."
+        description="Check session information before starting attendance"
         secondaryAction={
           <Link to="/app/sessions">
             <Button variant="secondary">Back to sessions</Button>
@@ -94,7 +94,7 @@ export function SessionDetailsPage() {
 
       <section className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
         <Card className="bg-slate-950 text-white">
-          <p className="text-caption text-slate-400">Selected context</p>
+          <p className="text-caption text-slate-400">Selected session</p>
           <h2 className="mt-2 text-2xl font-semibold">{session.title}</h2>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             <div className="rounded-2xl bg-white/5 p-4">

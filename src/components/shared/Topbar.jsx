@@ -45,13 +45,13 @@ export function Topbar() {
           </Link>
           <div className="relative hidden max-w-md flex-1 md:block">
             <Search className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
-            <Input className="bg-white pl-10" placeholder="Search current workspace context" />
+            <Input className="bg-white pl-10" placeholder="Search" />
           </div>
         </div>
         <div className="ml-auto flex flex-wrap items-center gap-3">
-          <Badge tone="info">System healthy</Badge>
+          <Badge tone="info">System working</Badge>
           <div className="min-w-64 rounded-2xl border bg-white px-4 py-3">
-            <p className="text-xs uppercase tracking-[0.24em] text-slate-400">Organization scope</p>
+            <p className="text-xs uppercase tracking-[0.24em] text-slate-400">Organization</p>
             {accessibleOrganizations.length > 1 ? (
               <Select
                 className="mt-2 border-none bg-transparent px-0 py-0 text-sm font-semibold shadow-none focus:ring-0"
@@ -66,7 +66,7 @@ export function Topbar() {
               </Select>
             ) : (
               <p className="mt-2 text-sm font-semibold text-brand-text">
-                {activeOrganization?.name ?? 'Select a workspace'}
+                {activeOrganization?.name ?? 'Select organization'}
               </p>
             )}
           </div>
@@ -100,10 +100,6 @@ export function Topbar() {
               <p className="text-xs text-brand-muted">{formatRole(currentUser.role)}</p>
             </div>
           </Link>
-          <div className="hidden rounded-2xl border bg-white px-4 py-2.5 xl:flex xl:items-center xl:gap-2">
-            <Sparkles className="size-4 text-brand-accent" />
-            <span className="text-sm text-brand-muted">Prototype mode</span>
-          </div>
           <Button
             variant="ghost"
             size="sm"

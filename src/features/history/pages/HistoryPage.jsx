@@ -8,8 +8,8 @@ export function HistoryPage() {
     <div className="space-y-6">
       <PageHeader
         eyebrow="Attendance history"
-        title="Chronological record review"
-        description="A history view for reviewing prior attendance outcomes, supporting the should-have history requirement in the SRS."
+        title="Attendance history"
+        description="View past attendance records"
       />
       <Card>
         <div className="space-y-4">

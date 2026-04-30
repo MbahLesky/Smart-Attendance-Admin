@@ -71,7 +71,7 @@ export function ReportsPage() {
     <div className="space-y-6">
       <PageHeader
         eyebrow="Reports"
-        title="Generate reports from the current organization, department, and session scope"
+        title="Generate reports"
         description="Reporting comes after the core management flows. Change the scope to review organization-wide summaries or narrow all the way down to a single session before exporting."
         secondaryAction={
           <Button variant="secondary" onClick={() => toast.success('CSV export simulated from the current report scope.')}>
